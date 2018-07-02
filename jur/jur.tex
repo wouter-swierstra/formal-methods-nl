@@ -1,0 +1,110 @@
+
+\documentclass[sigplan,10pt,noacm]{acmart}
+\settopmatter{printfolios=false,printccs=false,printacmref=false}
+
+\acmConference{A Research Agenda for Formal Methods in The Netherlands}%
+  {September 3--4, 2018}%
+  {Lorentz Center, Leiden, The Netherlands}
+\acmYear{2018}
+\acmISBN{} % \acmISBN{978-x-xxxx-xxxx-x/YY/MM}
+\acmDOI{} % \acmDOI{10.1145/nnnnnnn.nnnnnnn}
+\startPage{1}
+
+\setcopyright{none}
+
+\begin{document}
+
+\title{The Usability of Type Systems}
+\author{Jurriaan Hage}
+
+\affiliation{
+  \institution{Universiteit Utrecht}
+  \country{The Netherlands}
+}
+\email{j.hage@uu.nl}
+\maketitle
+
+
+\section{Introduction}
+
+Types are used in statically typed languages to guarantee that
+``well-typed programs do not go wrong'' (for the right definition of
+wrong). Typically, this means that the compiler for the language
+prevents certain programs from compiling, because it has discovered
+that while running the program a value of some type may be stored
+in a variable or passed to an operation that
+works on values of an incompatible type. Such a type system is called an 
+intrinsic type system,
+as it is part of the language definition that defines what are valid
+programs (for the given language). 
+
+Rice's theorem~\cite{} implies that no type system for a Turing complete
+language can precisely characterize the set of programs that always go right.
+In a statically typed languages this means that the type system allows
+only a subset of such programs. For example, a compiler for such a language
+will enforce type correctness for all parts of a program, even for code
+that can in fact never be executed in any execution.
+
+According the Hindley-Milner type discipline~\cite{} (used as the basis
+for the type systems of many statically typed functional languages), 
+an expression like $(\lambda x . x x) (\lambda y. y)$ is considered
+ill-typed. The reason is that in the first lambda-abstraction $x$ is applied
+to itself, leading to an infinite type to be inferred for it, something which
+is not allowed within the discipline. For that reason, people have sought
+to extend the type system leading to the invention of so-called higher-ranked types.
+
+Extending and refining the intrinsic type system of a programming language to 
+ensure that it can soundly (with respect to the semantics of the language)
+accept more and more programs is a game the programming language community
+has been playing for some time. For a language such as Haskell alone, type system
+concepts such as Generalized Abstract Datatypes (GADTs)~\cite{}, type families,
+associated data types, and type classes with many of its extensions, 
+have been developed to allow the programmer to express (partial) correctness
+properties of their programs. At the extreme end of that spectrum we find
+the dependently typed languages, such as Agda and Idris, that find their 
+root in Haskell syntax and in which the worlds of type and values have
+merged so that almost any property can be expressed within the 
+type system~\cite{wouter}.
+
+The development of new type system features to extend the set of known
+well-behaved programs has some of the characteristics of an armament race.
+Consider the following, highly idealized, scenario for the programming
+language X.
+At one point, users of X discover that a particular class of 
+properties cannot be easily expressed in a given language, or that certain classes of programs that
+clearly do not go wrong are forbidden by its intrinsic type system.
+This sets off programming language researchers to develop extensions to or
+refinements of the existing type system of X to deal with this issue,
+prototype implementations are made to experiment with the new ``weapon'',
+interactions with existing features of X are (hopefully) considered and
+if everything proceeds as planned, the new feature can be placed into the
+hands of the programmer by an implementation into a industry-strength compiler
+for X, unaware that some of these new features can easily blow up in 
+your face.
+
+\section{The diagnosis of type errors}
+
+Of course, most programs and compilers do not actually blow up in anyone's face.
+What they might do, is refuse to compile a program and generate a type error
+message. And, the more complicated and advanced the type system, the more
+complicated one can expect this  
+
+For example, developers of embedded domain-specific language in Haskell ran 
+into the problem that it was hard to express type system-like properties within 
+the type system of the host language, leading to the development of GADTs. 
+
+Plain Haskell etc.
+
+DSLs
+
+Dependently Typed
+
+\section{Transparent programmer assistance for optimising functional programs}
+
+transparency
+
+type signatures as the interface
+
+varying levels of precision
+
+\end{document}
