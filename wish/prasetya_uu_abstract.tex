@@ -1,0 +1,209 @@
+%\documentclass[acmsmall,review,anonymous]{acmart}\settopmatter{printfolios=true,printccs=false,printacmref=false}
+\documentclass[sigplan]{acmart}\settopmatter{printfolios=false,printccs=false,printacmref=false}
+
+
+\acmConference{Research Agenda for Formal Methods in The Netherland}
+\acmYear{2018}
+\acmISBN{} % \acmISBN{978-x-xxxx-xxxx-x/YY/MM}
+\acmDOI{} % \acmDOI{10.1145/nnnnnnn.nnnnnnn}
+\startPage{1}
+
+\setcopyright{none}
+
+
+\begin{document}
+\title[Short Title]{In Search for Scalable Correctness Assurance in Virtual Realities}  
+\author{Wishnu Prasetya}
+\orcid{nnnn-nnnn-nnnn-nnnn}             %% \orcid is optional
+\affiliation{
+  \institution{Utrecht University}            %% \institution is required
+}
+\email{blabla@uu.nl}    
+
+\maketitle
+
+One of the main research focuses at Utrecht University is in advanced mediums of human and computer
+interactions. One of such a medium is Virtual Reality (VR) which had become popular, with various applications: entertainment, education,
+training, marketing, and even in health care. 
+%
+% https://www.newgenapps.com/blog/top-5-virtual-reality-examples-real-world
+% UCL uses VR to treat bipolar syndrome.
+%
+Compared to traditional User Interface, VR offers realism, smooth interactions, and immersion, of which
+many applications can benefit. Like any software though, we do want our virtual realities to
+function correctly. In related short papers, authors have addressed Utrecht University's research in
+%
+advanced type checking \cite{wouterLorenz2018},
+static analysis \cite{xxx},
+and program synthesis \cite{xxx}.
+These belong to the class of static approaches to correctness assurance, along with
+e.g. program verification \cite{cok2004esc}.
+%
+In this short paper we will focus on a complementary approach. 
+Inevitably, real world software will have
+plenty of aspects which cannot be verified statically using the afore mentioned approaches.
+To complement them, we will look into a dynamic way of assuring correctness, in particular
+{\em automated testing}. We define 'automated testing' as an
+approach to verify a given formal specification $\psi$ (capturing some desired property) 
+by generating actual executions and checking
+that these executions satisfy $\psi$. Producing just one execution is usually not considered
+as adequate. Test adequacy is usually expressed in terms of a coverage requirement, which can
+be thought as a set of target predicates representing different classes of similar executions.
+While simply producing an execution is trivial, producing an execution that solves a particular
+coverage target is often hard (in general undecidable).
+
+
+\subsubsection*{The challenge}
+
+
+Testing a virtual world poses an interesting challenge. Its interaction space is huge. Furthermore,
+its virtue of smooth interaction means a single interaction can be very fine grained, e.g. moving
+just one pixel to the right, while on the other hand there is always a whole spectrum of possible
+actions to do, resulting in a combinatoric explosion in the interaction space. Obviously, programs 
+with large enough state space will pose a challenge for manual testing, but in virtual worlds 
+this challenge is further aggravated to a new level. Even creating a single test case
+is laborious. For example, suppose a new entity has been added into the virtual world and we 
+want to verify that it interacts correctly. Very often entities cannot be tested independently
+because their behavior depend on the virtual world context in which they are placed. It is hard
+for testers to create this context without the help of the visualization and other senses provided
+by virtual world itself, which implies that the only practical way to test them is by testing them in
+the virtual world itself. This would require the tester to first navigate through the virtual 
+world to the place where the said entity resides. Multiplied over multiple test cases, this overhead
+is really significant, hence scalability is a real threat if we ever want to properly
+test a virtual world, which matters e.g. if it is to be used for something mission critical.
+
+
+A virtual world is
+also inhabited with many dynamic entities. These are entities that can autonomously move around
+or change their state (e.g. it may become at some point uninteractable). Some of them may even
+actively try to obstruct the user, e.g. if they simulate enemy units in a combat training 
+program. These not only further complicate things for human testers, but they practically
+make the virtual world non-deterministic. Although theoretically we can control every random
+generator in a program, and even control its internal concurrency, in practice this is
+just very hard to engineer. The consequence of this is that the old trick of recording
+test plays to replay them when we need to re-test the virtual world does not work anymore,
+which implies that testers will just have to toil manually again every time the virtual
+world is updated or patched, and hence needs to be re-tested.
+
+So we turn to computers, seeking our salvation. But can computers do all these things that usually
+require humans to accomplish?
+
+\subsubsection*{Where should we look?}
+
+Let's first briefly consider where we currently stand in the field of automated testing. Bounded
+model checking (BMC) \cite{biere2003bounded} has been shown to be feasible. A program can be thoroughly
+verified, up to a certain execution depth. However, this is not likely to work on fine grained interaction space
+of a VR, where the space immediately blows up after the initial state. Many states
+that need verification would be just too far way for BMC. 
+Combinatoric testing \cite{nie2011survey} offers at least an alternative perspective. The idea is to split the interaction space into
+several dimensions the tester believe to be relevant in influencing the target
+property $\psi$ to test. Then each dimension is partitioned into equivalence classes.
+To test $\psi$ we exhaustively generate executions such that every combination of the equivalence
+classes over all dimensions is covered by at least one execution. Such abstract reduction
+would allow us to, in principle, and complementary to BMC, reach far away states. Unfortunately, finding
+even one execution that satisfies a given coverage constraint is, as remarked before,
+a hard problem. So, although combinatoric testing suggests a promising position, it alone
+does not enlighten us as to how to get to that position in the first place.
+
+The last decade has also seen the advance of search based testing \cite{mcminn2004search} that treats
+the problem for solving a given coverage predicate as a search problem, for which
+there are various algorithms we can try. The most popular one is probably the family of evolutionary algorithms,
+e.g. as implemented in the tool Evosuite \cite{fraser2011evosuite} which has been very successful in
+constantly winning unit testing tool competitions \cite{SBST2015Contest}. Despite being evolution-inspired, 
+an evolutionary algorithm still works by, to some degree randomly, trying out different
+executions, and then applying mutation and cross over to converge them towards 
+solutions. The process is guided by a so-called fitness function which is a metric
+expressing how far we are from finding a solution. While such a process works well at the unit testing
+level, it is unlikely to scale up to deal with the huge interaction space of a VR.
+Fitness functions would become far too abstract/rough to properly capture the dynamic of such a space.
+
+The direction that we have been investigating at Utrecht University is to 
+combine those automated testing approaches with human like cognitive skills. Agents with such skills 
+can be deployed into a VR to simulate human testers to autonomously test the VR. The underlying
+premise is that with just enough of such skills the agents would be able 
+to get some grasp on the VR's semantical structure, hence becoming more effective in choosing the right interactions rather than just brute-forcely or randomly trying all sorts of interactions. 
+We hypothesize thus that cognitive skills would enable test agents 
+to prune the search space into fragments which are again tractable for traditional approaches.
+
+A simple example is navigation skill, which we can add by simply incorporating a path finding algorithm \cite{cui2011based}
+into the agents. This would enable the agents to go from one place
+to another in the VR, without having to brute force the path using BMC or an evolutionary algorithm.
+
+The agents will need more than just navigation skill though. A path may be blocked, for which
+specific interactions are needed to clear it. In turn, this may requires the corresponding entities to be
+in a certain state, which in turn requires more interactions to trigger. Rather than just brute
+forcing all sorts of possible interactions, the test agents need to make educated guesses.
+Entities in a virtual world, and interactions that we can do on them, 
+represent concepts meaningful to humans, e.g. building, door, vehicle. Interactions on a door
+would be for example 'open' and 'close', and so on. Agents would need to be able to {\em learn} and {\em infer} associations between concepts, to at least make a guess which ones would be relevant,
+and which ones can be ignored, towards solving some goal at hand. We are not there yet in our research,
+but this is the future direction that we want to go. At least, 'learning' and 'inference' are two themes
+which have been well researched. The more specific research question for us would be to find out which
+learning and inference paradigms suit best for VR testing.
+
+Further down the road, more challenges await:
+what kind of cognitive skill is needed to deal with dynamic entities, including those which are
+not friendly? And how about collaboration? Many VRs allow multiple users, and hence allowing us
+to deploy multiple agents. Can we exploit this? 
+For many VRs, user experience is very important.
+Bad reviews from users can be detrimental for a VR's reputation, potentially wasting the
+millions USD invested into developing it. Can we extend the agents so that they can appraise
+which general emotion the VR would invoke? Is it boring? Is it too distressing?
+
+%\subsubsection*{Further on the road}
+%Augmented reality.
+%In the mean time the tech-world does not stand still either. It has invented the next 'reality': augmented reality.
+
+\subsubsection*{Closing words}
+
+Virtual reality poses an interesting scientific challenge for the formal method research. 
+Here we have outlined how it challenges the current state of the art of automated testing,
+but this actually applies to other areas of formal methods. In automated testing we focuses
+on generating executions, given specifications. But producing a formal specification of
+a virtual world is not trivial either. What is the right paradigm to formalize it? 
+What can we do (or what should we trade off) to make it as scalable?
+
+The tech-world does not remain still either ---of course we know that. The next kind of "reality"
+is already around the corner: augmented reality. So, how do we deal with that...?
+
+\bibliographystyle{abbrv}
+\bibliography{custom}
+
+\appendix  
+
+\subsubsection*{Just my random chatter...}
+
+A test can be declaratively formulated as a 'goal'. A simple goal can take
+the form of $\forall e{:}E. \; \phi ; I \; {\rm on} \; e \Rightarrow \psi$
+to mean that when the the virtual world's state is in $\phi$, doing
+interactions $I$ on any entity $e$ of type $E$ should produce effects
+satisfying $\psi$. To verify this, a test agent explores the VR under test,
+and whenever it interacts with an instance of $E$ the above 'Hoare-triple'
+can be checked. The agent needs to produce at least one
+'solving execution' though, which is an execution that ends up in a state
+satisfying $\phi$, and where there is at least one instance of $E$
+in the direct vicinity of the agent to interact with. In general, finding
+a solving execution is a hard problem, so we cannot afford to just let
+the agent wander around aimlessly, nor to just greedily try out everything.
+With such a goal we cannot however express relation between multiple
+entities. To be more general
+we can use a behavior tress \cite{xxx} to formulate a goal, with simple goals
+as leaves, and nodes specifying how the subgoals are to be combined
+(e.g. disjunctively or sequentially). This allows more complex goals to be
+formulated, or to let 'guidance' to be added in the form of subgoals.
+
+Oh, we can also encode coverage goals in the same tree.
+
+So... why do scientists like Harry Potter? 
+
+He speaks Python.
+
+
+
+
+
+
+
+
+ 
+\end{document}    
