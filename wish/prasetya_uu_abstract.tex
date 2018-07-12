@@ -8,6 +8,8 @@
 \acmDOI{} % \acmDOI{10.1145/nnnnnnn.nnnnnnn}
 \startPage{1}
 
+\newcommand{\HIDE}[1]{}
+
 \setcopyright{none}
 
 
@@ -23,7 +25,7 @@
 \maketitle
 
 One of the main research focuses at Utrecht University is in advanced mediums of human and computer
-interactions. One of such a medium is Virtual Reality (VR) which had become popular, with various applications: entertainment, education,
+interactions. One of such a medium is Virtual Reality (VR) which has become popular, with various applications: entertainment, education,
 training, marketing, and even in health care. 
 %
 % https://www.newgenapps.com/blog/top-5-virtual-reality-examples-real-world
@@ -34,8 +36,8 @@ many applications can benefit. Like any software though, we do want our virtual 
 function correctly. In related short papers, authors have addressed Utrecht University's research in
 %
 advanced type checking \cite{wouterLorenz2018},
-static analysis \cite{xxx},
-and program synthesis \cite{xxx}.
+static analysis \cite{hageLorenz2018},
+and program synthesis.
 These belong to the class of static approaches to correctness assurance, along with
 e.g. program verification \cite{cok2004esc}.
 %
@@ -77,7 +79,7 @@ A virtual world is
 also inhabited with many dynamic entities. These are entities that can autonomously move around
 or change their state (e.g. it may become at some point uninteractable). Some of them may even
 actively try to obstruct the user, e.g. if they simulate enemy units in a combat training 
-program. These not only further complicate things for human testers, but they practically
+program. These not only further complicate the situation for human testers, but they practically
 make the virtual world non-deterministic. Although theoretically we can control every random
 generator in a program, and even control its internal concurrency, in practice this is
 just very hard to engineer. The consequence of this is that the old trick of recording
@@ -156,12 +158,12 @@ which general emotion the VR would invoke? Is it boring? Is it too distressing?
 
 \subsubsection*{Closing words}
 
-Virtual reality poses an interesting scientific challenge for the formal method research. 
+Virtual reality poses an interesting scientific challenge for the formal method community. 
 Here we have outlined how it challenges the current state of the art of automated testing,
-but this actually applies to other areas of formal methods. In automated testing we focuses
+but this actually applies to other areas of formal method. In automated testing we focuses
 on generating executions, given specifications. But producing a formal specification of
 a virtual world is not trivial either. What is the right paradigm to formalize it? 
-What can we do (or what should we trade off) to make it as scalable?
+What can we do (or what should we trade off) to make it scalable?
 
 The tech-world does not remain still either ---of course we know that. The next kind of "reality"
 is already around the corner: augmented reality. So, how do we deal with that...?
@@ -169,6 +171,7 @@ is already around the corner: augmented reality. So, how do we deal with that...
 \bibliographystyle{abbrv}
 \bibliography{custom}
 
+\HIDE{
 \appendix  
 
 \subsubsection*{Just my random chatter...}
@@ -197,7 +200,7 @@ Oh, we can also encode coverage goals in the same tree.
 So... why do scientists like Harry Potter? 
 
 He speaks Python.
-
+}
 
 
 
