@@ -1,4 +1,3 @@
-
 \documentclass[sigplan,10pt,noacm]{acmart}
 \settopmatter{printfolios=false,printccs=false,printacmref=false}
 
@@ -14,7 +13,7 @@
 
 \begin{document}
 
-\title{The Usability of Type Systems}
+\title{The Usability of Static Type Systems}
 \author{Jurriaan Hage}
 
 \affiliation{
@@ -45,19 +44,22 @@ only a subset of such programs. For example, a compiler for such a language
 will enforce type correctness for all parts of a program, even for code
 that can in fact never be executed in any execution.
 
+Another example is the following. 
 According the Hindley-Milner type discipline~\cite{} (used as the basis
 for the type systems of many statically typed functional languages), 
 an expression like $(\lambda x . x x) (\lambda y. y)$ is considered
 ill-typed. The reason is that in the first lambda-abstraction $x$ is applied
 to itself, leading to an infinite type to be inferred for it, something which
 is not allowed within the discipline. For that reason, people have sought
-to extend the type system leading to the invention of so-called higher-ranked types.
+to extend the type system leading to the invention of so-called 
+higher-ranked types.
 
 Extending and refining the intrinsic type system of a programming language to 
 ensure that it can soundly (with respect to the semantics of the language)
 accept more and more programs is a game the programming language community
-has been playing for some time. For a language such as Haskell alone, type system
-concepts such as Generalized Abstract Datatypes (GADTs)~\cite{}, type families,
+has been playing for some time. For a language such as Haskell alone, 
+type system concepts such as Generalized Abstract Datatypes (GADTs)~\cite{},
+type families,
 associated data types, and type classes with many of its extensions, 
 have been developed to allow the programmer to express (partial) correctness
 properties of their programs. At the extreme end of that spectrum we find
@@ -71,9 +73,10 @@ well-behaved programs has some of the characteristics of an armament race.
 Consider the following, highly idealized, scenario for the programming
 language X.
 At one point, users of X discover that a particular class of 
-properties cannot be easily expressed in a given language, or that certain classes of programs that
+properties cannot be easily expressed in a given language, or that 
+certain classes of programs that
 clearly do not go wrong are forbidden by its intrinsic type system.
-This sets off programming language researchers to develop extensions to or
+This prompts programming language researchers to develop extensions to or
 refinements of the existing type system of X to deal with this issue,
 prototype implementations are made to experiment with the new ``weapon'',
 interactions with existing features of X are (hopefully) considered and
@@ -84,27 +87,111 @@ your face.
 
 \section{The diagnosis of type errors}
 
-Of course, most programs and compilers do not actually blow up in anyone's face.
-What they might do, is refuse to compile a program and generate a type error
-message. And, the more complicated and advanced the type system, the more
-complicated one can expect this  
+Fortunately, most programs and compilers do not actually blow up in anyone's 
+face. What a compiler might do, is refuse to compile a program and generate a 
+type error
+message. And, the more complicated and advanced the type system and its
+implementation is, the harder it will be to convey such a message
+correctly and comprehrensibly. This is not simply due to 
+the intricacy of the new concept, but also there seems to be a tendency
+to concentrate on making the implementation of the concept itself
+and dealing with all the complicated interactions with other features.
+The usability of the feature comes third, or fourth place, if it
+receives any attention at all\footnote{A notable exception is Elm that only
+includes only concepts that the designers believe they can deal with in a way that 
+it does not hamper the programmer. This, however, has now seemed to lead to 
+an adversity to introduce new features at all.}. Sometimes, the design
+of a new feature is very pleasing from a programming language viewpoint, but
+unintuitive from a programmer's viewpoint. A good example is the notion of
+type classes in Haskell to model ad-hoc overloading, the fact that the
+same function name can refer to two different implementations to what
+is conceptually the same operation, e.g., testing equality of two integers
+and testing equality for characters. In the setting of Haskell, when 
+a programmer accidentally compares two functions, the message you normally
+get is that you then have to add a method for comparing functions. 
+In practice, however it typically means that the programmer forgot to provide 
+arguments to the functions, since comparing functions for equality makes
+very little sense. In the presence of overloaded numerals such error messages 
+can become even more confusing.
 
-For example, developers of embedded domain-specific language in Haskell ran 
-into the problem that it was hard to express type system-like properties within 
-the type system of the host language, leading to the development of GADTs. 
+Other challenges include the diagnosis of type errors in 
+Domain-Specific Languages (DSLs) embedded into a general purpose host 
+language~\cite{}.
+The aim in this case is to introduce a new language specialized for a domain
+as part of an existing (host) language. As part of the embedding, we may
+even want to use the type system of the host to encode type-like properties
+for the embedded language. Type error diagnosis in such a setting is quite
+different from ordinary type error diagnosis, in that the host language
+compiler has absolutely no knowledge of the domain we are dealing with. In
+particular, error messages will typically fail to take in domain 
+terms to the programmer. This information then has to be provided as part of 
+the DSL definition. Some solutions
+to this problem can be found in the literature, and although some
+implementations exist in realistic languages, much work still has to be done.
 
-Plain Haskell etc.
-
-DSLs
-
-Dependently Typed
+At the farthest extreme in terms of the guarantees that can be provided
+by the programmer we find the dependently typed languages (see \cite{wouter}
+for more details). In this setting computation and type have all become one.
+This means that very precise properties can be checked, although
+typically the language itself imposes certain demands on the programs to 
+make type checking work. Writing code in a language of this kind
+is more like proving theorems, the idea of this paradigm is that at some time
+the code that is written comes with a correctness proof for the code, integrated
+seamlessly in one whole. In practice, these languages are very hard to
+use, introducing diagnosis problems at various levels: on top of the 
+usual unification errors, e.g., a function is called with arguments
+in the wrong order, at another level we might want the compiler
+to suggest strengthening a lemma to make the proof of a theorem go through. 
 
 \section{Transparent programmer assistance for optimising functional programs}
 
-transparency
+It is not at all clear that the problems observed in the previous
+section carry over to the optimisation of statically typed functional
+languages. Here is how.
 
-type signatures as the interface
+The advent of intrinsic type system has led to the development of what
+are often called type and effect systems (some call these non-standard
+type system, or annotated type systems). The idea is to
+annotate the intrinsic types (then called underlying types),
+with properties of interest (e.g., strictness information for a lazy
+language~\cite{}, usage information~\cite{}, or control-flow information~\cite{}).
+The distinct advantages of this approach are twofold: types provide 
+additional structure that we can exploit during the analysis, 
+and we reuse vocabulary and implementation techniques from the world of 
+type systems. For example,
+the let-polymorphism of the Hindley-Milner type system gives rise
+to so-called let-polyvariance in type and effect systems. 
 
-varying levels of precision
+We can, however, go one step further. Optimisations are usually performed
+deep down in the innards of the compiler. Whether an analysis actually
+leads to an optimisation, and how that is affected by how the program
+was written is not known to the programmer unless he/she is willing
+to spend time inspecting the generated object code. Typically, 
+after some profiling, we try something, and see how that affects 
+the running time and memory consumption.
+
+This hit-and-miss is ad-hoc and very time consuming and this problem
+becomes even more pronounced as the language becomes more powerful.
+Nowadays, performance is not often a problem, but if it is then developing
+applications in such a language becomes a risk and developers may prefer
+to resort to lower-level languages instead. To counter this development,
+what we need is that compilers are transparent in that the 
+information they collect for a given programs (the results of the 
+analyses they do), are made available to programmers at a suitably
+high level of abstraction. One way is to present this information
+as type signatures decorated with the analysis information. Going one step
+further, these signatures can be supplied by the programmer so that
+the compiler can either verify that it can derive that information (showing
+that the programmer's expectations are correct), or, if this is not the case,
+they can be used by the compiler to generate faster code 
+(albeit potentially unsafe, this
+is not any different from allowing programmers in Haskell to use
+\texttt{seq} to enforce a certain amount of strictness~\cite{holdermansmaking}.)
+
+In other words, the same problems that have bothered implementors of compilers
+of functional languages show up in another guise. This gives us something
+of a head start, but on the other hand, optimising analyses are different
+enough to bring their own set of challenges to the table.
+
 
 \end{document}
