@@ -19,7 +19,7 @@
 
 \begin{document}
 
-\title{Formal Methods in Computational Science}
+\title{Formal Methods for Better Software in Computational Science}
 \author{Anna-Lena Lamprecht}
 
 \affiliation{
@@ -59,12 +59,12 @@ Future work in this area will in the first place have to address issues of \text
 
 \section{Python and R}
 
-Formally trained computer scientists are often irritated by the fact that Python and GNU R appear to be the \textbf{most popular} languages among data scientists of all disciplines. They are regarded easy to learn, but most importantly in practice, large amounts of libraries are avaible for these languages that readily provide frequently needed functionality. That is, they are often simply the fastest means to get data analyzed (and results published). Considerations about correctness, code quality and maintainability come second.
+Formally trained computer scientists are often irritated by the fact that Python and GNU R appear to be the \textbf{most popular} languages among data scientists of all disciplines. They are regarded easy to learn, but most importantly in practice, large amounts of libraries are available for these languages that readily provide frequently needed functionality. That is, they are often simply the fastest means to get data analyzed (and results published). Considerations about correctness, code quality and maintainability come second.
 
 Python and R are \textbf{dynamically typed languages}, that is, variables are declared without a concrete type, and get assigned concrete types only at runtime. Such code is usually faster to write, but when a program gets more complex, runtime errors caused by mismatching data types are the norm and can be difficult to fix (especially by programmers without much experience).
 Even worse, it can happen that type mismatches remain undetected and lead to wrong results: Many libraries like those mentioned above transparently perform type casts to make programming simpler for the user, by \enquote{guessing} the correct type. Not suprisingly, sometimes this goes wrong, and suddenly the data has changed, leading to alternative results, but no runtime error or warning alerts the user. If the obtained values are really far away from the expected, the scientist might get suspicious, but when they remain in feasible ranges or even give a sensational result, they just go through to publication.
 
-As of version 3.6 Python includes a \textbf{static type checker} to support programmers to catch common type-related errors already while coding. It remains to be seen, however, if this feature will be taken up by the scientific community. Likely programming in Python, R and similar languages would benefit greatly from IDEs that are aware of \textbf{domain-specific type systems} related to the domain models sketched above, and based on that provide support to \textbf{diagnose and fix type errors} as described in~\cite{jur}. Further on, the use of \textbf{dependent types} as described in~\cite{wouter} could eventually overcome further issues.
+As of version 3.6 Python includes a \textbf{static type checker} to support programmers to catch common type-related errors already while coding. It remains to be seen, however, if this feature will be taken up by the scientific community. Likely programming in Python, R and similar languages would benefit greatly from IDEs that are aware of \textbf{domain-specific type systems} related to the domain models sketched above, or even \textbf{dependent types}~\cite{wouter}, and based on that provide support to \textbf{diagnose and fix type errors} as described in~\cite{jur}.
 
 
 \section{Conclusion}
