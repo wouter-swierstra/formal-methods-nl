@@ -1,0 +1,251 @@
+\RequirePackage[hyphens]{url}
+\documentclass[sigplan]{acmart}\settopmatter{printfolios=true,printccs=false,printacmref=false}
+
+%% Conference information
+%% Supplied to authors by publisher for camera-ready submission;
+%% use defaults for review submission.
+\acmConference[]{Formal Methods in the Netherlands}
+\acmYear{2018}
+\acmISBN{} % \acmISBN{978-x-xxxx-xxxx-x/YY/MM}
+\acmDOI{} % \acmDOI{10.1145/nnnnnnn.nnnnnnn}
+\startPage{1}
+
+\setcopyright{none}
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+%\setcopyright{rightsretained}
+%\copyrightyear{2018}           %% If different from \acmYear
+
+%% Bibliography style
+\bibliographystyle{ACM-Reference-Format}
+%% Citation style
+%\citestyle{acmauthoryear}  %% For author/year citations
+%\citestyle{acmnumeric}     %% For numeric citations
+%\setcitestyle{nosort}      %% With 'acmnumeric', to disable automatic
+                            %% sorting of references within a single citation;
+                            %% e.g., \cite{Smith99,Carpenter05,Baker12}
+                            %% rendered as [14,5,2] rather than [2,5,14].
+%\setcitesyle{nocompress}   %% With 'acmnumeric', to disable automatic
+                            %% compression of sequential references within a
+                            %% single citation;
+                            %% e.g., \cite{Baker12,Baker14,Baker16}
+                            %% rendered as [2,3,4] rather than [2-4].
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Note: Authors migrating a paper from traditional SIGPLAN
+%% proceedings format to PACMPL format must update the
+%% '\documentclass' and topmatter commands above; see
+%% 'acmart-pacmpl-template.tex'.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Some recommended packages.
+\usepackage{booktabs}   %% For formal tables:
+                        %% http://ctan.org/pkg/booktabs
+\usepackage{subcaption} %% For complex figures with subfigures/subcaptions
+                        %% http://ctan.org/pkg/subcaption
+
+\hypersetup{breaklinks=true}
+
+\begin{document}
+
+%% Title information
+\title{Practical Formal Methods}         %% [Short Title] is optional;
+                                        %% when present, will be used in
+                                        %% header instead of Full Title.
+
+%% Author with single affiliation.
+\author{Jeroen J.A. Keiren}
+%\authornote{with author1 note}          %% \authornote is optional;
+                                        %% can be repeated if necessary
+\orcid{0000-0002-5772-9527}             %% \orcid is optional
+\affiliation{
+  %\position{Position1}
+  \department{Department of Computer Science}              %% \department is recommended
+  \institution{Open University of the Netherlands}            %% \institution is required
+  %\streetaddress{Street1 Address1}
+  %\city{Heerlen}
+  %\state{State1}
+  %\postcode{Post-Code1}
+  %\country{The Netherlands}                       %% \country is recommended
+}
+\affiliation{
+  %\position{Position2a}
+  \department{Department of Digital Security, ICIS}             %% \department is recommended
+  \institution{Radboud University}           %% \institution is required
+  %\streetaddress{Street2a Address2a}
+  \city{Nijmegen}
+  %\state{State2a}
+  %\postcode{Post-Code2a}
+  \country{The Netherlands}                    %% \country is recommended
+}
+
+\affiliation{
+  %\position{Position2a}
+  %\department{}             %% \department is recommended
+  \institution{Delft University of Technology}           %% \institution is required
+  %\streetaddress{Street2a Address2a}
+  \city{Delft}
+  %\state{State2a}
+  %\postcode{Post-Code2a}
+  \country{The Netherlands}                   %% \country is recommended
+}
+\email{Jeroen.Keiren@ou.nl}          %% \email is recommended
+
+% %% Abstract
+% %% Note: \begin{abstract}...\end{abstract} environment must come
+% %% before \maketitle command
+% \begin{abstract}
+% Text of abstract \ldots.
+% \end{abstract}
+
+
+% %% 2012 ACM Computing Classification System (CSS) concepts
+% %% Generate at 'http://dl.acm.org/ccs/ccs.cfm'.
+% \begin{CCSXML}
+% <ccs2012>
+% <concept>
+% <concept_id>10011007.10011006.10011008</concept_id>
+% <concept_desc>Software and its engineering~General programming languages</concept_desc>
+% <concept_significance>500</concept_significance>
+% </concept>
+% <concept>
+% <concept_id>10003456.10003457.10003521.10003525</concept_id>
+% <concept_desc>Social and professional topics~History of programming languages</concept_desc>
+% <concept_significance>300</concept_significance>
+% </concept>
+% </ccs2012>
+% \end{CCSXML}
+
+% \ccsdesc[500]{Software and its engineering~General programming languages}
+% \ccsdesc[300]{Social and professional topics~History of programming languages}
+% %% End of generated code
+
+
+% %% Keywords
+% %% comma separated list
+% \keywords{keyword1, keyword2, keyword3}  %% \keywords are mandatory in final camera-ready submission
+
+
+%% \maketitle
+%% Note: \maketitle command must come after title commands, author
+%% commands, abstract environment, Computing Classification System
+%% environment and commands, and keywords command.
+\maketitle
+
+\section{Introduction}
+Today, we heavily depend on software. We do not only use the computers on our
+desktops and the mobile phones in our pockets. Financial infrastructures and
+automatic stock trading are controlled by computers, and computer systems are
+embedded in home appliances such as televisions, safety critical systems such as
+cars and airplanes, as well as systems controlling (access to) infrastructure
+such as bridges and tunnels.
+
+During the development of software, inevitably, mistakes are made. In fact, on
+average, every 1000 lines of code contain up to 10-16 bugs \cite{ostrand_distribution_2002,ostrand_where_2004}.
+Some of these bugs will only show up once the system is running. At that
+point, the consequences can range from being harmless -- e.g. needing to restart
+your phone because it freezes --, to very severe -- such as a car crashing
+\cite{ntsb_2018}, hundreds of millions of dollars being lost in in the stock markets
+\cite{glitch_2012}. Furthermore, a growing reliance on battery-powered devices and the
+effects of climate change have resulted in an increased interest in \emph{green
+computing}. Bugs that lead to quick draining of batteries have gained a lot of
+publicity \cite{facebook_bug_2017}.
+
+To effectively detect or avoid such bugs early (preferably before software is
+used) calls for a range of different tools and techniques. This ranges from
+exact and exhaustive verification methods such as (automated) theorem proving
+and model checking, to formal testing techniques such as model based testing,
+automated testing at the level of graphical user interfaces, as well as more
+traditional testing techniques such as unit- and integration testing.
+The formal methods and software engineering communities in the Netherlands have
+a long track record in developing such techniques.
+
+When considering, especially, the more formal approaches such as model checking,
+theorem proving and model-based testing, there is a lot of anecdotal evidence
+that they are effective in finding and avoiding bugs, for instance
+\cite{hwong_formalising_2013,Madlener10,fiterau_2016}. However, the techniques
+typically require experts that are well-versed in both the application domain as
+well as in the formal methods applied. Furthermore, a clear business case for
+the application of formal methods is missing.
+
+Besides the mainly theoretical research into the foundations of formal methods
+based verification and testing techniques, there are three research directions
+that deserve our undivided attention.
+\begin{enumerate}
+  \item Develop formal methods that can be used by software engineers that are not formal methods experts.
+  \item Establish a business case for the industrial application of formal methods through empirical research.
+  \item Determine how formal methods can best be integrated in software engineering and computer science curricula. 
+\end{enumerate}
+I will detail each of these three points in the rest of this abstract.
+
+\section{Bringing formal methods to the masses}
+
+The application of formal methods such as model checking or model based testing
+to industrial cases is still very much an expert activity. Tools often rely on
+models of the software, instead of the software itself, and the models are
+specified in domain-specific languages whose syntax is far from the the
+programming languages software engineers are used to. Throughout the years many
+applications of such techniques have been reported as a success, e.g.,
+\cite{Madlener10,fiterau_2016}, but large-scale
+industrial application has yet to gain traction.
+
+In software model-checking, some successes have been obtained, e.g., at
+Microsoft using
+SLAM\footnote{\url{https://www.microsoft.com/en-us/research/project/slam/}, accessed 9
+August 2018} \cite{SLAM} and TERMINATOR, continued as T2 \cite{T2}, for the
+verification of C code, where verifying a limited set of properties on an actual
+(C-code) implementation seems to be one of the success criteria.
+
+To bring formal methods to the masses, as a community we need to invest not just
+in new techniques, but also in the engineering of tooling and languages that
+can be used in the industrial software engineering process, and recognise that this step is not ``just trivial engineering''. We should therefore not stop
+at the development of prototype tools, but also look at industry needs and 
+invest in making the tooling mature enough for use in production systems. At CERN, for example, we went from high-level academic tools, down to an integration of the verification in the IDE used by the developers, effectively providing developers with push-button access to model checking \cite{hwong_formalising_2013}.
+
+\section{Empirical evidence for the merits of formal methods}
+
+Industrial application of formal methods are typically reported as succes stories.
+However, from an industrial perspective, it is important to know the effects on
+applying such techniques. How does the application of formal methods affect, for
+example, time-to-market, number of bugs found after deployment, etc.
+
+Unfortunately, such information is currently lacking from the formal methods
+literature. Some vendors, such as Verum with its Dezyne toolkit -- which is based on mCRL2 \cite{dezyne_mcrl2} --, do report
+benefits such as ``50\% reduction in development costs, 25\% reduction in the
+cost of field defect and 20\% decrease in
+time-to-market''\footnote{\url{https://www.verum.com}, accessed 9 August 2018.}, but the sources and reliability of such data are unclear.
+In order to build a successful business case for the application of formal
+methods in software engineering practice, a collaborative effort should be made
+to collect data about the application of formal methods. Based on the collected
+data, a business case for the application of formal methods should be developed. One possibility could be the collection of data in a large number of student projects, such as \cite{Rouwen2018}.
+
+
+\section{Teaching formal methods}
+
+A final advance in the acceptance of formal methods lies in the way we teach
+formal methods. It appears commonplace in software engineering and computer
+science curricula to present formal methods more as a research topic than as a
+software engineering topic. A typical question one gets from students is ``so,
+where and how are these techniques actually applied in industry''. In recent
+years, I have seen more critical attitudes of students towards formal methods
+courses. Should we do a better job at integrating formal methods into our
+curricula, to really show the students what the can \emph{do with formal methods}
+instead of \emph{how the formal methods work}?
+
+Note that there is more to the teaching of formal methods. How can we
+effectively teach such methods using modern tools and techniques such as massive
+open online courses (MOOCs)? In particular, with (sometimes dramatically)
+increasing numbers of students, and in the context of distance learning, we need
+to find ways of providing feedback in formal methods education that does not
+rely on expert feedback. Is it possible to build interactive online tools that
+present feedback to students about their solutions? Are there more effective
+ways of teaching formal methods than we currently use in our courses? Can we, in
+this respect, learn from programming education research such as \cite{scratch,redesign}?
+
+
+%% Bibliography
+\bibliography{bibfile}
+
+\end{document}
