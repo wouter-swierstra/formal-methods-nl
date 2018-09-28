@@ -1,0 +1,293 @@
+%% For double-blind review submission, w/o CCS and ACM Reference (max submission space)
+%\documentclass[sigplan,10pt,review,anonymous]{acmart}\settopmatter{printfolios=true,printccs=false,printacmref=false}
+%% For double-blind review submission, w/ CCS and ACM Reference
+%\documentclass[sigplan,10pt,review,anonymous]{acmart}\settopmatter{printfolios=true}
+%% For single-blind review submission, w/o CCS and ACM Reference (max submission space)
+\documentclass[sigplan,10pt]{acmart}\settopmatter{printfolios=false,printccs=false,printacmref=false}
+%% For single-blind review submission, w/ CCS and ACM Reference
+%\documentclass[sigplan,10pt,review]{acmart}\settopmatter{printfolios=true}
+%% For final camera-ready submission, w/ required CCS and ACM Reference
+%\documentclass[sigplan,10pt]{acmart}\settopmatter{}
+
+
+%% Conference information
+%% Supplied to authors by publisher for camera-ready submission;
+%% use defaults for review submission.
+\acmConference[PL'17]{ACM SIGPLAN Conference on Programming Languages}{January 01--03, 2017}{New York, NY, USA}
+\acmYear{2017}
+\acmISBN{} % \acmISBN{978-x-xxxx-xxxx-x/YY/MM}
+\acmDOI{} % \acmDOI{10.1145/nnnnnnn.nnnnnnn}
+\startPage{1}
+
+%% Copyright information
+%% Supplied to authors (based on authors' rights management selection;
+%% see authors.acm.org) by publisher for camera-ready submission;
+%% use 'none' for review submission.
+\setcopyright{none}
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+%\setcopyright{rightsretained}
+%\copyrightyear{2017}           %% If different from \acmYear
+
+%% Bibliography style
+%\bibliographystyle{ACM-Reference-Format}
+%% Citation style
+%\citestyle{acmauthoryear}  %% For author/year citations
+%\citestyle{acmnumeric}     %% For numeric citations
+%\setcitestyle{nosort}      %% With 'acmnumeric', to disable automatic
+                            %% sorting of references within a single citation;
+                            %% e.g., \cite{Smith99,Carpenter05,Baker12}
+                            %% rendered as [14,5,2] rather than [2,5,14].
+%\setcitesyle{nocompress}   %% With 'acmnumeric', to disable automatic
+                            %% compression of sequential references within a
+                            %% single citation;
+                            %% e.g., \cite{Baker12,Baker14,Baker16}
+                            %% rendered as [2,3,4] rather than [2-4].
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Note: Authors migrating a paper from traditional SIGPLAN
+%% proceedings format to PACMPL format must update the
+%% '\documentclass' and topmatter commands above; see
+%% 'acmart-pacmpl-template.tex'.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Some recommended packages.
+\usepackage{booktabs}   %% For formal tables:
+                        %% http://ctan.org/pkg/booktabs
+\usepackage{subcaption} %% For complex figures with subfigures/subcaptions
+                        %% http://ctan.org/pkg/subcaption
+
+\usepackage{enumerate}
+\begin{document}
+
+%% Title information
+\title{Correct Message-Passing Software Systems}         %% [Short Title] is optional;
+                                        %% when present, will be used in
+                                        %% header instead of Full Title.
+%\titlenote{with title note}             %% \titlenote is optional;
+                                        %% can be repeated if necessary;
+                                        %% contents suppressed with 'anonymous'
+\subtitle{Current and Future Research Challenges}                     %% \subtitle is optional
+%\subtitlenote{with subtitle note}       %% \subtitlenote is optional;
+                                        %% can be repeated if necessary;
+                                        %% contents suppressed with 'anonymous'
+
+
+%% Author information
+%% Contents and number of authors suppressed with 'anonymous'.
+%% Each author should be introduced by \author, followed by
+%% \authornote (optional), \orcid (optional), \affiliation, and
+%% \email.
+%% An author may have multiple affiliations and/or emails; repeat the
+%% appropriate command.
+%% Many elements are not rendered, but should be provided for metadata
+%% extraction tools.
+
+%% Author with single affiliation.
+\author{Jorge A. P\'{e}rez}
+%\authornote{Also affiliated with CWI, Amsterdam.}          %% \authornote is optional;
+                                        %% can be repeated if necessary
+\orcid{nnnn-nnnn-nnnn-nnnn}             %% \orcid is optional
+\affiliation{
+%  \position{Position1}
+  \department{Bernoulli Institute for Mathematics, Computer Science, and Artificial Intellgence}              %% \department is recommended
+  \institution{University of Groningen}            %% \institution is required
+%  \streetaddress{Street1 Address1}
+%  \city{City1}
+%  \state{State1}
+%  \postcode{Post-Code1}
+  \country{The Netherlands}       }
+\email{j.a.perez@rug.nl}          %% \email is recommended
+
+%%% Author with two affiliations and emails.
+%\author{First2 Last2}
+%\authornote{with author2 note}          %% \authornote is optional;
+%                                        %% can be repeated if necessary
+%\orcid{nnnn-nnnn-nnnn-nnnn}             %% \orcid is optional
+%\affiliation{
+%  \position{Position2a}
+%  \department{Department2a}             %% \department is recommended
+%  \institution{Institution2a}           %% \institution is required
+%  \streetaddress{Street2a Address2a}
+%  \city{City2a}
+%  \state{State2a}
+%  \postcode{Post-Code2a}
+%  \country{Country2a}                   %% \country is recommended
+%}
+%\email{first2.last2@inst2a.com}         %% \email is recommended
+%\affiliation{
+%  \position{Position2b}
+%  \department{Department2b}             %% \department is recommended
+%  \institution{Institution2b}           %% \institution is required
+%  \streetaddress{Street3b Address2b}
+%  \city{City2b}
+%  \state{State2b}
+%  \postcode{Post-Code2b}
+%  \country{Country2b}                   %% \country is recommended
+%}
+%\email{first2.last2@inst2b.org}         %% \email is recommended
+
+
+%% Abstract
+%% Note: \begin{abstract}...\end{abstract} environment must come
+%% before \maketitle command
+\begin{abstract}
+%Text of abstract \ldots.
+Many critical software systems rely on message-passing between distributed artefacts, such as (micro)services.
+To a large extent, certifying system correctness amounts to ensuring that these artefacts respect some intended protocol.
+
+Rooted in programming models from concurrency theory,
+\emph{behavioral type systems} are a rigorous verification technique for message-passing programs.
+While these type systems are well understood by now,
+a main challenge remains: as their precision varies ostensibly, 
+they induce seemingly unrelated forms of  correctness.
+Since behavioral type systems still lack unifying foundations, it is hard to establish a most necessary dialogue with other researchers and software practitioners.
+
+
+This note briefly introduces behavioral type systems and describes current research that targets the above challenge, 
+framed within my VIDI career grant, recently awarded.
+It also suggests links between type-based program verification and other approaches in the 
+%(broader) formal methods community. 
+intersection of formal methods, programming languages, and software engineering.
+\end{abstract}
+
+
+%% 2012 ACM Computing Classification System (CSS) concepts
+%% Generate at 'http://dl.acm.org/ccs/ccs.cfm'.
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10011007.10011006.10011008</concept_id>
+<concept_desc>Software and its engineering~General programming languages</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10003456.10003457.10003521.10003525</concept_id>
+<concept_desc>Social and professional topics~History of programming languages</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Software and its engineering~General programming languages}
+\ccsdesc[300]{Social and professional topics~History of programming languages}
+%% End of generated code
+
+
+%% Keywords
+%% comma separated list
+\keywords{message-passing concurrency, verification, types}  %% \keywords are mandatory in final camera-ready submission
+
+
+%% \maketitle
+%% Note: \maketitle command must come after title commands, author
+%% commands, abstract environment, Computing Classification System
+%% environment and commands, and keywords command.
+\maketitle
+
+
+
+
+\section{Communication Correctness}
+Ensuring software systems correct is widely recognized as a societal challenge (see, e.g.,~\cite{DBLP:conf/isola/HuismanBBDGLPV16}). 
+Establishing correctness for concurrent programs is much harder than for sequential programs.
+For message-passing programs, we may define \emph{communication correctness} as the interplay of four properties: 
+\begin{enumerate}[-]
+\item \emph{Fidelity}: programs respect interaction protocols; 
+\item \emph{Safety}: programs do not get into errors, e.g., communication mismatches; 
+\item \emph{Deadlock-freedom}: programs do not get stuck; 
+\item \emph{Termination}: programs do not have infinite internal runs.
+\end{enumerate}
+Certifying communication correctness is notoriously hard. Developers need \emph{effective} and \emph{practical} verification tools. Effective tools detect insidious bugs (e.g., communication errors, protocol mismatches, deadlocked services) before programs are run. 
+Practical tools reconcile the \emph{programming view} that developers understand well (where programs are implemented) and the \emph{engineering view} needed to build large systems (where protocols are conceived).
+
+
+\section{Behavioral Types}
+Framed within concurrency theory and programming languages, \emph{behavioral type systems} 
+(or just \emph{behavioral types}~\cite{DBLP:journals/csur/HuttelLVCCDMPRT16}) 
+are a rigorous technique for certifying  that 
+message-passing programs satisfy
+communication correctness.
+
+
+\paragraph{From Data Types to Behavioral Types}
+Type systems prevent the occurrence of  errors during the execution of a program~\cite{DBLP:books/crc/tucker97/Cardelli97}.
+The most basic property of a type system, \emph{soundness}, ensures that ``well-typed programs can't go wrong''~\cite{DBLP:journals/jcss/Milner78}.
+
+While usual data types classify values, {behavioral types}
+ organize concurrent interactions into   \emph{communication structures}, which are explicit for developers and architects~\cite{DBLP:journals/eatcs/Vasconcelos11}. Implementation agnostic, behavioral types are \emph{effective}: the interaction sequences they codify are useful to exclude bugs that jeopardize communication correctness. Behavioral types are \emph{practical}:  communication structures can be compositionally expressed at different abstraction levels.
+ Soundness of a behavioral type system typically ensures fidelity and safety; deadlock-freedom and termination are harder to enforce.
+%, and usually require extra technicalities. 
+ 
+\paragraph{Foundations and (Too Many) Variants}
+Behavioral types are usually defined on top of \emph{process calculi}, formal languages that treat concurrent processes much like the $\lambda$-calculus treats computable functions. The $\pi$-calculus~\cite{MilnerPW92a}, the paradigmatic calculus of concurrency, is the specification language for many   behavioral type systems. The intent is to define robust type systems for the $\pi$-calculus, and then transfer such foundations to specific languages. 
+This is how verification tools based on behavioral types 
+have been successfully developed
+for 
+Haskell~\cite{DBLP:conf/popl/OrchardY16}, Go~\cite{DBLP:conf/cc/NgY16,DBLP:conf/popl/LangeNTY17}, and Scala~\cite{DBLP:conf/ecoop/ScalasDHY17}.
+
+Many behavioral type systems exist; see~\cite{DBLP:journals/csur/HuttelLVCCDMPRT16} for a survey. 
+%Representative proposals include 
+%;
+%\emph{linear types}~\cite{DBLP:conf/unu/Kobayashi02};
+%\emph{action types}~\cite{DBLP:conf/esop/HondaVY00,DBLP:journals/iandc/YoshidaBH04,DBLP:journals/acta/BergerHY05}; 
+%and
+%\emph{generic process types}~\cite{DBLP:journals/tcs/IgarashiK04}.
+%and \emph{conversation types}~\cite{DBLP:journals/tcs/CairesV10}. 
+Primarily intended as \emph{static} verification techniques, which enforce correctness prior to a program's execution, behavioral types may help also in defining \emph{dynamic}  verification techniques that    
+{couple} %(possibly untyped) 
+message-passing programs with so-called \emph{monitors} that ensure fidelity and safety at run-time.
+
+\section{Two Pressing Challenges}
+While specific theories of behavioral types (most notably, \emph{session types}~\cite{DBLP:conf/esop/HondaVK98,DBLP:conf/popl/HondaYC08}) are gradually reaching maturity, 
+the body of knowledge on behavioral type systems as a whole is still {immature}, as two basic issues still lack proper justifications. 
+
+\emph{First}, 
+different behavioral type systems  enforce \emph{different notions of communication correctness}: hence, a 
+program accepted as 
+well-typed (i.e., communication-correct) by one type system could be ruled out as incorrect by another.
+
+%\item 
+\emph{Second}, and related to the above point,
+since the precise relations between different behavioral types are still poorly understood, their derived verification tools are \emph{hardly interoperable}. As such, we still do not know how to combine distinct verification tools in the formal analysis of communication correctness in complex software systems.
+
+Our ongoing research, recently supported by a VIDI career grant, aims at jointly tackling both challenges.\footnote{See \url{http://www.jperez.nl/vidi} for details.}
+
+In short,  my VIDI career grant aims to unify distinct notions of communication correctness induced by different theories of behavioral types. 
+To this end, various verification techniques for message-passing programs will be rigorously related in terms of their \emph{relative expressiveness}~\cite{DBLP:conf/forte/Perez16}. 
+To articulate a unified theory of correctness,
+we will crucially rely on the Curry-Howard correspondence for concurrency~\cite{DBLP:conf/tldi/CairesPT12}, the most principled link between concurrency and logic. 
+Our preliminary results~\cite{DBLP:journals/corr/DardhaP15,KPY2016,DBLP:conf/forte/CairesP16} are rather promising.
+We plan to validate these  foundational results  through case studies and tool prototypes.
+
+\section{A  Research Agenda for the Future?}
+Tackling the two above challenges appears to be a pre-req\-ui\-site step for addressing other relevant research questions in the intersection of  formal methods, programming languages, and software engineering. Such questions include:
+
+\begin{enumerate}[-]
+\item \emph{\textbf{Integration of techniques}.} Can we combine techniques based on behavioral types with complementary techniques developed by (Dutch) researchers on formal methods, such as model checking and (concurrent) program logics?
+
+\item \emph{\textbf{Cyber-security and trustworthiness}.} Verification based on behavioral types uses protocols as key abstraction for enforcing communication correctness. 
+There is potential for using this abstraction in other settings. For instance, 
+can we reconcile this view of protocols with the one typically required to certify \emph{security protocols} in critical software systems?
+(We have given a   preliminary  answer  in~\cite{DBLP:conf/forte/NantesP18}.)
+
+\item \emph{\textbf{Industrial transfer and impact}.}
+To what extent verification based on behavioral types has a place in validation phases used by (Dutch) software industries?
+
+\item \emph{\textbf{Usability}.}  Are verification frameworks based on behavioral types usable by software developers in practice? Can practice inform further theoretical research on type-based program verification? (A preliminary  answer is in~\cite{DBLP:conf/oopsla/VoineaG16}.)
+
+
+
+\end{enumerate}
+
+\noindent
+While this list is by no means exhaustive, in our opinion these questions already suggest  potential grounds for collaboration with other (Dutch) researchers, as well as also medium- and long-term 
+challenges to be tackled in cooperation with practitioners and software industries.
+
+%% Bibliography
+\bibliography{referens}
+\bibliographystyle{abbrv}
+
+\end{document}
