@@ -1,0 +1,29 @@
+\section{Introduction}\label{sec:intro}
+
+Software is everywhere! Every day we use and rely upon enormous amounts of software, %without even being aware of it~\cite{GenuchtenH13}. 
+%This includes the obvious applications, such as mobile phone apps and all kinds of %office software, but also the software in our cars, household equipment, airplanes etc. 
+It has become impossible to imagine what life would be like without software. 
+%What we are not aware of, is how much software is actually safety-critical or business-critical, and how big 
+This creates the risk that one day software failures will bring our everyday life to a grinding halt. In fact, all software
+contains errors that cause it to behave in unintended ways~\cite{GanapathiP05,MatiasPBH14},
+%Studies have shown that software applications
+% have on average between 1 and 16 errors per 1000 lines of code, even when tested and deployed~\cite{OstrandW02,OstrandWB04}, 
+and substantial research is needed to 
+%reduce this number and 
+to help software developers to make software that is reliable under all circumstances, without compromising its performance.
+
+
+
+
+A commonly used approach to improve software performance is the use of \emph{concurrency} and \emph{distribution}.
+% In both approaches, the software is split into several parallel computations. This can be done in many different ways: the same computations on different data can be done in parallel (\emph{homogeneous threading}), independent parts of the computation can be split and executed in parallel (\emph{heterogeneous threading}), and anything in between. In all cases, access to shared memory and communication between the parallel threads has to be coordinated in a suitable way. If the parallel computations happen on a single computer, possibly exploiting that the computer has multiple computing cores, this is called \emph{concurrent computing}. If the parallel computations happen on different computers, connected by a network, this is called \emph{distributed computing}.
+For many applications, a smart split into parallel computations can lead to a significant increase in performance.
+Unfortunately, parallel computations make it more difficult to guarantee \emph{reliability} of the software.
+%, \emph{i.e.}, to ensure that an application performs its intended functions and operations, without experiencing failures. In particular, as the computations execute in parallel, the exact order in which individual actions of the parallel computations are interleaved cannot be predicted in advance, and can be different for every execution, due to a different timing. The possible interactions and subtle interplays between the parallel computations can lead to unexpected errors. Moreover, as in a next execution, the interleaving of actions may be different, an error might not occur in every execution. This makes error prediction and tracing the sources of errors highly complex.
+The consequence is unsettling: the use of concurrent and distributed software is widespread, because it provides efficiency and robustness, but the unpredictability of its behaviour makes that errors can occur at unexpected, seemingly random moments. 
+
+The quest for reliable software builds on a long history, and significant progress has already been made. Nevertheless, ensuring reliability of efficient software remains an open challenge. Ultimately, it is our dream that program verification techniques are built into software development environments. When a software developer writes a program, he explicitly writes down the crucial  desired properties about the program, as well as the assumptions under which the different program components may be executed. Continuously, an automatic check is applied to decide whether the desired properties are indeed established, and whether the assumptions are respected. If this is not the case, this is shown to the developer~--~with useful feedback on why the program does not behave as intended. 
+
+
+
+

@@ -1,0 +1,114 @@
+\begin{tikzpicture}
+
+\tikzset{
+    depbox/.style={
+      draw=\leadingcolor,
+%      top color=white, bottom color=black!20,
+      fill=lightgray,
+      rounded corners, text badly centered},
+    deparrow/.style={draw=black, dashed, shorten >=2pt, shorten <=2pt, ultra thick},
+    connectarrow/.style={ultra thick,dashed,draw=\leadingcolor,shorten >=8pt, shorten <=8pt},
+    wpbox/.style={
+      fill=dblue!20!white,draw=black,text badly centered,inner sep=0pt,ellipse
+    },     
+    approxbox/.style={text width= 5cm
+          },     
+    featbox/.style={
+          },     
+}
+
+\coordinate (topnode) at (0,5);
+\coordinate (bottomnode) at (0, 1.5);
+\coordinate (alinenode) at (-.5,1);
+\coordinate (blinenode) at (.5, 1.5);
+
+\node[inner sep=0pt] (abstraction) at (topnode)
+  {\setlength{\fboxrule}{1pt}\fcolorbox{\leadingcolor}{\supportcolor}{\includegraphics[width=2cm]{abstraction.pdf}}};    
+
+\node[inner sep=0pt] (code) at (bottomnode)
+ {\setlength{\fboxrule}{1pt}\fcolorbox{\leadingcolor}{\supportcolor}{\includegraphics[width=2cm]{code.pdf}}};    
+
+\draw[deparrow] (alinenode)--(-.5,5);
+\draw[deparrow] (blinenode)--(.5,5.5);
+
+\node[featbox] at (-1.2, 3.1){action \(a_1\)};
+\node[featbox] at (1.3, 3.1){action \(a_2\)};
+\node[featbox] at (2.6, 5){\quad{}Mathematical model};
+\node[featbox] at (2.2, 1.5){\quad{}Software code};
+\node[approxbox] at (7, 5){\textcolor{\leadingcolor}{Step 1: has property
+  \(\phi_{\mathsf{abstract}}\) over actions \(a_1\) and \(a_2\)}};
+\node[approxbox] at (7, 3.1){\textcolor{\leadingcolor}{Step 2: actions \(a_1\) and \(a_2\)
+  correspond to suitable code fragments}};
+\node[approxbox] at (7, 1.5){\textcolor{\leadingcolor}{Conclusion: code has property
+  \(\phi_{\mathsf{concrete}}\)}};
+% %\coordinate (designnode) at (0,-3);
+% \coordinate (develnode) at (0,0);
+% \coordinate (vcnode) at (4,0);
+% \coordinate (vernode) at (8,0);
+% % \coordinate (parnode) at (10,3);
+% \coordinate (relnode) at (12,0);
+% \coordinate (analysisnode) at (12,-3);
+% \coordinate (cornernode) at (0,-3);
+
+% %\node[depbox,fill=dblue!40!white,text width=2.5cm] (design) at (designnode) {\strut Design};
+% \node[depbox,fill=dblue!40!white,text width=2.5cm] (devel) at
+% (develnode) {\strut Design and\\Development};
+% \node[depbox,fill=dblue!40!white,text width=2cm] (vc) at (vcnode) {\strut Service Integration};
+% \node[depbox,fill=dblue!40!white, text width=2.5cm] (ver) at (vernode)
+% {\strut Automated \\ Validation};
+% % \node[depbox,text width=2.2cm] (par) at (parnode) {\strut Partial\\\strut Test Release};
+% \node[depbox,fill=dblue!40!white, text width=3cm] (rel) at (relnode) {\strut
+%   Release\\\strut (Trial or Global)};
+% \node[depbox,fill=dblue!40!white, text width=2cm] (analysis) at (analysisnode) {\strut Problem\\\strut Analysis};
+
+% % \draw[deparrow] (design.north) -- (devel.south);
+% \draw[deparrow] (devel.east) -- (vc.west);
+% \draw[deparrow] (vc.east) -- (ver.west);
+% \draw[deparrow] (ver.east) -- (rel.west);
+% % \draw[deparrow, shorten >=6pt, shorten <=6pt] (ver.north) -- (par.south);
+% % \draw[deparrow, shorten >=6pt, shorten <=6pt] (par.south) -- (rel.north);
+% \draw[deparrow] ([xshift=4mm]rel.south) -- ([xshift=4mm]analysis.north);
+% \draw[deparrow, shorten >=6pt, shorten <=6pt] ([xshift=-2mm]analysis.north) -- ([xshift=-0mm]ver.south);
+% \draw[deparrow,rounded corners] ([xshift=-0mm]analysis.west) -- (cornernode) --  ([xshift=-0mm]devel.south);
+
+% % \node[wpbox,text width=1.8cm] (wp2) at ([yshift=-7mm]vc.south) {WP2:\\Differential\\Model};
+% % \node[wpbox,text width=3.5cm] (wp34) at ([yshift=-4mm]ver.south)
+% %   {WP3: Testing\\WP4: Static Analysis};
+
+% % \node[wpbox,text width=3.5cm] (wp5) at (wp5node)
+% %   {WP5: Validation\\and Integration};
+
+% % \draw[connectarrow] (wp5.south)--(ver.north);
+% % \draw[connectarrow] (wp5.south)--(vc.north);
+% % \draw[connectarrow] (wp5.east)--(par.west);
+% % \draw[connectarrow] (wp5.east)--(rel.north west);
+% % \draw[connectarrow,bend left=30] (wp5.south east) to node{} ([xshift=4mm,yshift=-1mm]analysis.north west);
+
+% % \node[featbox,text width=1.8cm] (em) at ([xshift=2mm,yshift=2mm]par.north east)
+% %   {Evasive\\Monitoring};
+
+% \node[featbox,text width=2.2cm,minimum size=2.5\baselineskip] (nem) at ([xshift=0mm,yshift=5mm]rel.north)
+%   {Monitoring};
+
+% \node[featbox,text width=2.8cm] at ([xshift=0mm,yshift=5mm]ver.north)
+%   {\strut Dynamic/Static\\
+%    Analysis};
+
+% \node[featbox,text width=2.3cm] at ([xshift=0mm,yshift=5mm]vc.north)
+%   {\strut Differential\\Model};
+
+
+% % \node[featbox,text width=1.8cm] (customers) at ([xshift=8mm,yshift=0mm]rel.east)
+% %   {1..\textasteriskcentered\\Customers};
+
+% \node[featbox,text width=1.8cm] (time) at ([xshift=10mm,yshift=0mm]analysis.east)
+%   {Error Analysis};
+% % \node[featbox,text width=1.5cm] (model) at ([xshift=4mm,yshift=0mm]analysis.east)
+% %   {Model};
+
+% \node[above,inner sep=0pt] at ([xshift=-8mm,yshift=-0mm]$(cornernode) !.5! (analysis)$) {\strut Long Term Fix};
+
+% \node[left,fill=white,inner sep=0pt] at ([xshift=-2mm,yshift=-2mm]$(ver) !.5! (analysis)$) {\strut Quick Fix};
+% \node[right,inner sep=0pt] at ([xshift=5mm,yshift=-2mm]$(rel) !.5! (analysis)$) {\strut Problems};
+
+\end{tikzpicture}

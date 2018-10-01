@@ -1,0 +1,203 @@
+%% For double-blind review submission, w/o CCS and ACM Reference (max submission space)
+\documentclass[sigplan,10pt]{acmart}\settopmatter{printfolios=true,printccs=false,printacmref=false}
+%% For double-blind review submission, w/ CCS and ACM Reference
+%\documentclass[sigplan,10pt,review,anonymous]{acmart}\settopmatter{printfolios=true}
+%% For single-blind review submission, w/o CCS and ACM Reference (max submission space)
+%\documentclass[sigplan,10pt,review]{acmart}\settopmatter{printfolios=true,printccs=false,printacmref=false}
+%% For single-blind review submission, w/ CCS and ACM Reference
+%\documentclass[sigplan,10pt,review]{acmart}\settopmatter{printfolios=true}
+%% For final camera-ready submission, w/ required CCS and ACM Reference
+%\documentclass[sigplan,10pt]{acmart}\settopmatter{}
+
+
+%% Conference information
+%% Supplied to authors by publisher for camera-ready submission;
+%% use defaults for review submission.
+\acmConference[Lorentz]{}{September 03--04, 2018}{Leiden, The Netherlands}
+\acmYear{2018}
+\acmISBN{} % \acmISBN{978-x-xxxx-xxxx-x/YY/MM}
+\acmDOI{} % \acmDOI{10.1145/nnnnnnn.nnnnnnn}
+\startPage{1}
+
+%% Copyright information
+%% Supplied to authors (based on authors' rights management selection;
+%% see authors.acm.org) by publisher for camera-ready submission;
+%% use 'none' for review submission.
+\setcopyright{none}
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+%\setcopyright{rightsretained}
+%\copyrightyear{2017}           %% If different from \acmYear
+
+%% Bibliography style
+\bibliographystyle{ACM-Reference-Format}
+%% Citation style
+\citestyle{acmauthoryear}  %% For author/year citations
+%\citestyle{acmnumeric}     %% For numeric citations
+%\setcitestyle{nosort}      %% With 'acmnumeric', to disable automatic
+                            %% sorting of references within a single citation;
+                            %% e.g., \cite{Smith99,Carpenter05,Baker12}
+                            %% rendered as [14,5,2] rather than [2,5,14].
+%\setcitesyle{nocompress}   %% With 'acmnumeric', to disable automatic
+                            %% compression of sequential references within a
+                            %% single citation;
+                            %% e.g., \cite{Baker12,Baker14,Baker16}
+                            %% rendered as [2,3,4] rather than [2-4].
+
+
+
+\begin{document}
+
+\title[]{Model checking in biology and health care} 
+
+
+\author{Rom Langerak}
+%\authornote{with author1 note}          %% \authornote is optional;
+                                        %% can be repeated if necessary
+%\orcid{nnnn-nnnn-nnnn-nnnn}             %% \orcid is optional
+\affiliation{
+%  \position{Position1}
+  \department{Formal Methods and Tools}           %% \department is recommended
+  \institution{University of Twente}            %% \institution is required
+%  \streetaddress{Street1 Address1}
+%  \city{City1}
+%  \state{State1}
+%  \postcode{Post-Code1}
+%  \country{Country1}                    %% \country is recommended
+}
+\email{r.langerak@utwente.nl}          %% \email is recommended
+
+
+\begin{abstract}
+
+Model checking is a useful technique for analyzing models in biology and
+health care.
+Here we point out several research topics concerning the modeling of
+various networks in biology, and modeling
+of diagnostic and treatment protocols in health care.
+
+\end{abstract}
+
+
+\maketitle
+
+
+\section{Introduction}
+Many complex biological phenomena can be modeled as networks. Prominent
+examples within biological cells are metabolic neworks, signaling networks, and
+gene regulatory networks. Understanding the quantitative and qualitative
+behavior of such networks is an important prerequisite for curing various
+diseases. Modeling these networks within a framework that allows model checking
+is an attractive way of gaining such understanding \cite{Brim:2013aa,David2015}.
+
+In Twente the contribution of computer science to this research has
+concentrated on the use of
+UPPAAL \cite{UPPAAL:aa}. UPPAAL is attractive as it is a mature tool allowing
+a compositional approach, and with a graphical interface that facilitates
+communication with non-experts in formal methods.
+
+Kinase signaling networks have been modeled 
+in the context of osteoarthritis \cite{Scholma:2013aa,Scholma:2014aa}. A tool
+called ANIMO has been created \cite{ANIMO:aa} that makes use of UPPAAL and is
+intended to be used by molecular biologists. ANIMO has been succesfully used to
+model realistically sized biological networks 
+\cite{Schivo:2012aa,Schivo:2013ab,Schivo:2014aa,Scholma:2014ab,Schivo:2016aa}.
+Below we list several research topics for the modeling and analysis of
+biological networks.
+
+Another line of research is modeling protocols for diagnosis and treatment, and
+then using model checking for analysing these protocols for effectiveness,
+efficiency,  and costs. In Twente such analysis has been performed using UPPAAL
+for prostrate cancer \cite{Schivo:2015,Degeling:2017} and tooth wear
+\cite{Rooijen:2018,Choudry:2018} (in collaboration with the Academic Centre for
+Dentistry Amsterdam). Below we list several research topic for  the modeling
+and analysis of diagnosis and treatment protocols.
+
+\section{Research topics for modeling and analysis of biological networks}
+
+
+\begin{description}
+\item[Tools] Modeling and analysis techniques should be offered to biologists
+and medical researchers via tools that hide as much as possible the technical
+complexities of the underlying computer science models. One way of achieving
+this is to try to stick as close as possible to user interfaces of the mostly
+informal network
+tools that have been developed already in biology.
+
+\item[Model generation] Creating a model can be a time consuming task. Often
+the information needed for constructing a model can be found in literature or
+databases.  Therefore we need to investigate techniques for building initial
+models from information that is extracted from heterogeneous sources. It is
+important to be able to deal with missing or incomplete information.
+
+\item[Parameter fitting and sensitivity] Much of the effort in creating a model
+goes into providing the right parameters for a model. This is related to the
+issue of parameter sensitivity and robustness. Especially for parameters that
+vary from patient to patient is is important to establish that model properties
+are not critically dependent on such parameters.
+
+\item[Simulation and visualization] Simulations are needed initially to gain
+confidence in the correctness of a model. Once confidence has been gained in
+the correctness, a model can be explored by simulating it with various stimuli.
+In this way hypotheses can be checked by in-silico experimentations. Challenges
+are the efficiency of such simulations, especcially if reactions may take place
+at different timescales. In addition, the way results are visually and
+graphically presented to
+researchers of medical practitioners  is of crucial importance.
+
+\item[Relating models and experiments] Experiments will always form an
+indispensible component of biological research, and modeling can geatly enhance
+the effectivity and efficiency of experiments. Models can be of great help0 in
+suggesting experiments and thereby pruning the large amount of possible
+experiments. Models are also important in interpretating the (often verly
+large) amount of experimental data - just indicating which data is in
+accordance with the model sofar, and which data is not, is already extremely
+useful. And more research should be performed on automatic suggestions for
+model improvement in the light of new experimentalo data.
+
+\item[Using model checking for drug synthesis] For some goal in a network model,
+model
+checking can provide the stimuli that have to be offered to a network in order
+to reach that goal, by analyzing the trace leading to the goal.
+In this way model checking is a powerful technique supporting drug synthesis.
+Since network
+models may have an enormous state space, the challenge is to find abstraction
+and high performance computing technqiues that enable to check large scale
+network models.
+
+
+\end{description}
+
+\section{Research topics for modeling and analysis of treatment protocols}
+
+
+\begin{description}
+\item[Tools] The ambition is to create a tool that enables health practitioners
+to create their own treatment protocols, and analyze them. This asks for a
+domain specific language that is both easy to use and sufficiently flexible and
+expressive to deal with many different scenarios.
+
+\item[Educated guesses for parameters] Usually when modeling a treatment
+protocol many parameters are unknown or not known precisely, and it would be
+too costly or time consuming to establish such parameters by clinical trials.
+What is needed is a framework to deal with such educated guesses; by sensitivity
+analysis or parameter sweeps it could be established which parameters need to
+be established with more precision, and which parameters are not so crucial for
+the analysis outcomes.
+
+
+\item[Optimization] It would be very useful to establish the optimal protocol
+under
+some constraint. What is the most effective protocol given a certain budget, or
+what is the most economic protocol that is able to obtain a given level of
+effectiveness? This asks for a theory of optimization of timed stochastic
+processes with costs.
+
+\end{description}
+
+
+\bibliography{References}
+
+
+
+\end{document}

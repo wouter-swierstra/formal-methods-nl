@@ -1,0 +1,290 @@
+\newcommand{\starconj}{*}
+\newcommand\defeq{\mathrel{\stackrel{\makebox[0pt]{\mbox{\normalfont\tiny $\Delta$}}}{=}}}
+
+\newcommand{\pplp}{\ensuremath{\mathcal{P}}\xspace}
+\newcommand{\pplpset}{\ensuremath{\mathbb{P}}\xspace}
+
+\newcommand{\concat}{%
+  \mathbin{{+}\mspace{-8mu}{+}}%
+}
+
+%Domain
+\newcommand{\lvardom}{\ensuremath{\mathsf{VarName}}\xspace}
+\newcommand{\locdom}{\ensuremath{\mathsf{Loc}}\xspace}
+\newcommand{\valdom}{\ensuremath{\mathsf{Val}}\xspace}
+\newcommand{\tiddom}{\ensuremath{\mathsf{[0..\ParLevel)}}\xspace}
+\newcommand{\dom}{\ensuremath{\mathsf{dom}}\xspace}
+\newcommand{\Heap}{\ensuremath{\mathsf{SharedMem}}\xspace}
+\newcommand{\Store}{\ensuremath{\mathsf{Store}}\xspace}
+\newcommand{\ProgStore}{\ensuremath{\mathsf{\gamma}}\xspace}
+
+\newcommand{\ThreadLState}{\ensuremath{\mathsf{PrivateMem}}\xspace}
+\newcommand{\BlockState}{\ensuremath{\mathsf{BlockState}}\xspace}
+\newcommand{\SeqState}{\ensuremath{\mathsf{LocalState}}\xspace}
+\newcommand{\LabelDom}{\ensuremath{\mathsf{Label}}\xspace}
+
+%Semantic
+\newcommand{\sheap}{\ensuremath{sh}\xspace}
+\newcommand{\block}{\ensuremath{\mathsf{Block}}\xspace}
+\newcommand{\Tid}{\ensuremath{\mathsf{T}}\xspace}
+\newcommand{\ParLevel}{\ensuremath{\mathsf{N}}\xspace}
+\newcommand{\ExecTid}{\ensuremath{\mathsf{E}}\xspace}
+\newcommand{\TidElem}{\ensuremath{\mathsf{tid}}\xspace}
+\newcommand{\Single}{\ensuremath{\mathsf{Init}}\xspace}
+\newcommand{\Par}{\ensuremath{\mathsf{Par}}\xspace}
+\newcommand{\Vect}{\ensuremath{\mathsf{Vec}}\xspace}
+\newcommand{\Seq}{\ensuremath{\mathsf{Seq}}\xspace}
+\newcommand{\seqstmt}{\ensuremath{\mathsf{SeqS}}\xspace}
+\newcommand{\ParC}{\ensuremath{\mathsf{ParC}}\xspace}
+\newcommand{\SeqC}{\ensuremath{\mathsf{SeqC}}\xspace}
+\newcommand{\Done}{\ensuremath{\mathsf{Done}}\xspace}
+\newcommand{\SDone}{\ensuremath{\mathsf{SDone}}\xspace}
+\newcommand{\SemBState}{\ensuremath{\mathsf{EB}}\xspace}
+%\newcommand{\SemSeqStateVec}{\ensuremath{\mathbb{LS}}\xspace}
+\newcommand{\SemSeqState}{\ensuremath{\mathsf{LS}}\xspace}
+\newcommand{\StmtVec}{\ensuremath{\mathbb{LS}}\xspace}
+\newcommand{\SVec}{\ensuremath{\mathbb{S}}\xspace}
+\newcommand{\Localcons}{\ensuremath{\mathsf{Local}}\xspace}
+
+
+%Syntax
+\newcommand{\midd}{\ensuremath{\mid}}
+\newcommand{\pgmrdsh}[2]{\ensuremath{#1\,:=\,\mathsf{mem}(#2)}\xspace}
+\newcommand{\pgmwrsh}[2]{\ensuremath{\mathsf{mem}(#1):=\,#2}\xspace}
+
+
+\newcommand{\PPLProg}{\ensuremath{\mathsf{Prog}}\xspace}
+\newcommand{\Word}{\ensuremath{\mathsf{Word}}\xspace}
+\newcommand{\Label}{\ensuremath{\mathsf{l}}\xspace}
+\newcommand{\VecSyn}{\ensuremath{\mathsf{Vec}}\xspace}
+\newcommand{\ParSyn}{\ensuremath{\mathsf{Par}}\xspace}
+\newcommand{\assign}{\ensuremath{\mathsf{ass}}\xspace}
+\newcommand{\Block}{\ensuremath{\mathsf{Block}}\xspace}
+\newcommand{\SeqCOpr}{\ensuremath{\mathsf{\fatsemi}}\xspace}
+\newcommand{\ass}{\ensuremath{\mathsf{ass}}\xspace}
+\newcommand{\gass}{\ensuremath{b \Rightarrow \ass}\xspace}
+\newcommand{\NOP}{\ensuremath{\mathsf{skip}}\xspace}
+\newcommand{\stmt}{\ensuremath{\mathsf{S}}\xspace}
+\newcommand{\singlestmt}{\ensuremath{\mathit{s}}\xspace}
+\newcommand{\Vecstmt}{\ensuremath{\mathsf{V}}\xspace}
+\newcommand{\pgmif}[2]{\ensuremath{\mathsf{if}\,(#1)\,\{#2\}\,}\xspace}
+\newcommand{\pgmifelse}[3]{\ensuremath{\mathsf{if}\,(#1)\,\{#2\}\,\mathsf{else}\,\{#3\}}\xspace}
+\newcommand{\pgmwhile}[2]{\ensuremath{\mathsf{while}\,(#1)\,\{#2}\}\xspace}
+\newcommand{\pgmassign}[2]{\ensuremath{#1\,:=\,#2}\xspace}
+\newcommand{\pgmnop}{\ensuremath{\mathsf{skip}}\xspace}
+\newcommand{\pgmcomp}[2]{\ensuremath{{#1}\mathsf{;}{#2}}\xspace}
+\newcommand{\globvar}{\ensuremath{gv}\xspace}
+\newcommand{\alloc}{\ensuremath{\mathsf{alloc}}\xspace}
+\newcommand{\dispos}{\ensuremath{\mathsf{dispose}}\xspace}
+\newcommand{\const}{\ensuremath{n}\xspace}
+\newcommand{\Integers}{\ensuremath{Integers}\xspace}
+%\newcommand{\Integers}{\ensuremath{\mathbb{Z}}\xspace}
+
+
+
+
+%logic
+\newcommand{\dataracefree}{\ensuremath{\mathbf{drf}}\xspace}
+%Soundness
+\newcommand{\contracts}{\ensuremath{\mathbb{C}}\xspace}
+\newcommand{\globalcontract}{\ensuremath{G}\xspace}
+\newcommand{\IndepIterations}{\ensuremath{\mathfrak{I}_{\perp}}\xspace}
+\newcommand{\AllPPL}{\ensuremath{\mathbb{P}}\xspace}
+\newcommand{\blockset}{\ensuremath{\mathbb{B}}\xspace}
+\newcommand{\blin}{\ensuremath{blin}\xspace}
+\newcommand{\IterationSet}{\ensuremath{\mathit{I}}\xspace}
+\newcommand{\IterationSetUnion}{\ensuremath{\mathbb{I}}\xspace}
+%\newcommand{\AllIterationSet}{\ensuremath{\mathbb{II}}\xspace}
+%\newcommand{\Per}{\ensuremath{\mathit{Per}}\xspace}
+\newcommand{\comp}{\ensuremath{\mathit{C}}\xspace}
+
+
+
+%necoding
+\newcommand{\matchfunc}{\sf{m}\xspace}
+\newcommand{\secmatchfunc}{\sf{sec}\xspace}
+\newcommand{\parable}{\sf{par\_able}\xspace}
+\newcommand{\fusiable}{\sf{fusible}\xspace}
+
+
+%Proof
+\newcommand{\hoare}[3]{\ensuremath{\{#1\}#2\{#3}\}}
+
+%Listing
+\def\lstlistingname{List.} 
+
+\definecolor{ao}{rgb}{0.0, 0.3, 0.0}
+\definecolor{burgundy}{rgb}{0.5, 0.0, 0.13}
+ 
+\lstdefinestyle{myinlinestyle}{
+float=t,
+numbers=none,
+columns=flexible,
+commentstyle=\color{black},
+framexleftmargin=1mm, 
+xleftmargin=1mm, 
+alsoletter=\,*,
+breaklines=true,
+tabsize=2,
+basicstyle=\sf,
+framesep=\fboxsep,
+framerule=\fboxrule,
+mathescape=true,
+showstringspaces=false,
+showspaces=false,
+keywordstyle=\sf,
+escapechar={\#}
+}
+
+
+\lstdefinestyle{myCustomCStyle3}{
+float=t,
+language = C,
+numbers=none,
+commentstyle=\color{ao},
+columns=flexible,
+framexleftmargin=1mm, 
+xleftmargin=1mm, 
+alsoletter=\,*,
+morekeywords={invariant, ensures, requires, context, \old, \length,
+  \forall, \forall*, **, Perm,send,receive,__kernel, barrier,loop_invariant,for},
+breaklines=true,
+tabsize=2,
+basicstyle=\footnotesize\color{ao}\tt,
+keywordstyle=\color{burgundy}\tt,
+%frame = single,
+framesep=\fboxsep,
+framerule=\fboxrule,
+mathescape=true,
+showstringspaces=false,
+showspaces=false,
+escapechar={\#}
+}
+
+\lstdefinestyle{myCustomCStyle2}{
+float=t,
+language = C,
+commentstyle=\color{ao},
+columns=flexible,
+framexleftmargin=1mm, 
+numbers=left,
+stepnumber=1,
+xleftmargin=1mm, 
+morekeywords={pragma,omp,nowait,schedule, shared,parallel,section,simd,single,sections,For,WhileVec,Par,ParVec,encode,compose, translate, fusiable, par_able,sec,m,bundle},
+breaklines=true,
+numberstyle=\tiny\sf,
+tabsize=2,
+basicstyle=\footnotesize\tt,
+keywordstyle=\color{blue}\tt,
+%frame = single,
+framesep=\fboxsep,
+framerule=\fboxrule,
+mathescape=true,
+showstringspaces=false,
+showspaces=false,
+escapechar={\$}
+}
+
+%%\newcommand{\myboxedtext}[2][rectangle,draw,fill=orange,rounded corners]{%
+%%        \tikz[baseline=-0.6ex] \node [#1,rounded corners]{#2};}%
+%%
+%%
+%%\mdfdefinestyle{MyFrame}{%
+%%    linecolor=blue,
+%%    outerlinewidth=1pt,
+%%%    roundcorner=20pt,
+%%    innertopmargin=2pt,
+%%%    innerbottommargin=\baselineskip,
+%%%    innerrightmargin=20pt,
+%%%    innerleftmargin=20pt,
+%%%    backgroundcolor=gray!50!white
+%%   }
+%%
+%% Formula semantics
+
+\newcommand{\perm}[2]{\ensuremath{\mathsf{Perm}(#1,#2)}}
+\newcommand{\slstar}{\mathop{\star}}
+\newcommand{\checkin}[3]{\ensuremath{({#1}\leftarrow{#2})\slstar{#3}}}
+\newcommand{\Loc}{\ensuremath{\mathsf{Loc}}}
+\newcommand{\Val}{\ensuremath{\mathsf{Val}}}
+\newcommand{\Frac}{\ensuremath{\mathsf{Frac}}}
+\newcommand{\Var}{\ensuremath{\mathsf{Var}}}
+\newcommand{\exprsem}[5]{\ensuremath{#1,#2,#3\mathop{[#4\rangle}#5}}
+\newcommand{\formsem}[5]{\ensuremath{#1,#2,#3\mathop{[#4\rangle}#5}}
+\newcommand{\true}{\ensuremath{\mathsf{true}}}
+\newcommand{\false}{\ensuremath{\mathsf{false}}}
+\newcommand{\forallstar}[3]{\ensuremath{\bigstar_{#1\in#2} #3}}
+
+
+\newcommand{\rcpre}[1]{\ensuremath{\mathit{rc}_{\mathsf{pre}}(#1)}}
+\newcommand{\rcpost}[1]{\ensuremath{\mathit{rc}_{\mathsf{post}}(#1)}}
+\newcommand{\rcpreblock}[2]{\ensuremath{\mathit{rc}_{\mathsf{pre},{#2}}(#1)}}
+\newcommand{\rcpostblock}[2]{\ensuremath{\mathit{rc}_{\mathsf{post},{#2}}(#1)}}
+
+
+\newcommandx{\yaHelper}[2][1=\empty]{%
+\ifthenelse{\equal{#1}{\empty}}%
+  { \ensuremath{ \scriptstyle{#2} } } % no offset
+  { \raisebox{#1}[2pt][0pt]{ \ensuremath{ \scriptstyle{#2} } } }  % with offset
+}
+
+\newcommandx{\yhookrightarrow}[4][1=\empty, 2=\empty, 4=\empty, usedefault=@]{%
+  \ifthenelse{\equal{#2}{\empty}}
+  { \xhookrightarrow{ \protect{ \yaHelper[ #4 ]{\!\!#3\!\!} } } } % there's no text below
+  { \xhookrightarrow[ \protect{ \yaHelper[ #2 ]{ #1 } } ]{ \protect{ \yaHelper[ #4 ]{ #3 } } } }
+}
+
+\newcommand{\xcurlyarrow}[1]{\yhookrightarrow{#1}[-1.5pt]}
+\newcommand{\xleadsto}[1]{{\buildrel{#1}\over\leadsto}}
+
+\newcommand{\synand}[0]{ \ | \ }
+\newcommand{\sem}[1]{[\![#1]\!]}
+\newcommand{\bigast}{{\scalebox{1.5}{$\ast$}}}
+\newcommand{\set}[1]{\{#1\}}
+\newcommand{\hoaretriple}[3]{\set{{#1}}\,{#2}\,\set{{#3}}}
+\newcommand{\globdom}[1]{{\mathbbmss #1}}
+\newcommand{\seqlist}[1]{[\,{#1}\,]}
+
+\newcommand{\lmerge}{\,\setlength{\unitlength}{1ex}
+                     \begin{picture}(2.3,2)\thinlines
+                     \put(.22,-.58){\line(1,0){1.25}}
+                     \put(0,0){$\parallel$}
+                     \end{picture}\!}
+										 
+\newcommand{\tightoverset}[2]{\mathop{#2}\limits^{\vbox to -.5ex{\kern-0.75ex\hbox{$#1$}\vss}}}
+
+\newcommand*{\medcup}{\mathbin{\scalebox{1.5}{\ensuremath{\cup}}}}%
+
+\newcommand{\harpoon}{\tightoverset{\rightharpoonup}}
+
+\newcommand{\keyw}[1]{\textbf{\textsf{#1}}}
+\newcommand{\parkeyw}[2]{\keyw{par}\,{#1}\,{#2}}
+\newcommand{\finishkeyw}[1]{\keyw{finish}\,{#1}}
+\newcommand{\allockeyw}[2]{{#1} := \keyw{alloc}\,{#2}}
+\newcommand{\disposekeyw}[1]{\keyw{free}\,{#1}}
+\newcommand{\itekeyw}[3]{\keyw{if}\,{#1}\,\keyw{then}\,{#2}\,\keyw{else}\,{#3}}
+\newcommand{\whilekeyw}[2]{\keyw{while}\,{#1}\,\keyw{do}\,{#2}}
+\newcommand{\processkeyw}[4]{{#1}:={#2}({#3})\,\keyw{with}\,{#4}}
+\newcommand{\actionkeyw}[4]{\keyw{action}\,{#1}.{#2}({#3})\,\keyw{do}\,{#4}}
+
+\newcommand{\fv}[1]{{\sf fv}({#1})}
+
+\newcommand{\xrightarrowdbl}[2][]{%
+  \xrightarrow[#1]{#2}\mathrel{\mkern-14mu}\rightarrow
+}
+
+\captionsetup{
+	labelfont=bf,
+	font={small}
+}
+
+\newcommand{\code}[1]{\textsf{#1}}
+
+
+\newcommand{\leadingcolor}{Purple!70!Black}
+% \newcommand{\supportcolor}{Yellow!60!orange}
+\newcommand{\supportcolor}{Purple!10!white!79!gray}
+\newcommand{\extracolor}{Yellow!75!orange}
+
+\newsavebox\lstbox
+

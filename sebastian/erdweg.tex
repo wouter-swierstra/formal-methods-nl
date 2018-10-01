@@ -1,0 +1,140 @@
+%-----------------------------------------------------------------------------
+%
+%               Template for sigplanconf LaTeX Class
+%
+% Name:         sigplanconf-template.tex
+%
+% Purpose:      A template for sigplanconf.cls, which is a LaTeX 2e class
+%               file for SIGPLAN conference proceedings.
+%
+% Guide:        Refer to "Author's Guide to the ACM SIGPLAN Class,"
+%               sigplanconf-guide.pdf
+%
+% Author:       Paul C. Anagnostopoulos
+%               Windfall Software
+%               978 371-2316
+%               paul@windfall.com
+%
+% Created:      15 February 2005
+%
+%-----------------------------------------------------------------------------
+
+
+\documentclass[preprint,numbers]{sigplanconf}
+
+% The following \documentclass options may be useful:
+
+% preprint       Remove this option only once the paper is in final form.
+%  9pt           Set paper in  9-point type (instead of default 10-point)
+% 11pt           Set paper in 11-point type (instead of default 10-point).
+% numbers        Produce numeric citations with natbib (instead of default author/year).
+% authorversion  Prepare an author version, with appropriate copyright-space text.
+
+\usepackage{amsmath}
+
+\newcommand{\cL}{{\cal L}}
+
+\begin{document}
+
+\special{papersize=8.5in,11in}
+\setlength{\pdfpageheight}{\paperheight}
+\setlength{\pdfpagewidth}{\paperwidth}
+
+% For compatibility with auto-generated ACM eRights management
+% instructions, the following alternate commands are also supported.
+%\CopyrightYear{2016}
+%\conferenceinfo{CONF'yy,}{Month d--d, 20yy, City, ST, Country}
+%\isbn{978-1-nnnn-nnnn-n/yy/mm}\acmPrice{\$15.00}
+%\doi{http://dx.doi.org/10.1145/nnnnnnn.nnnnnnn}
+
+% Uncomment the publication rights used.
+%\setcopyright{acmcopyright}
+% \setcopyright{acmlicensed}  % default
+%\setcopyright{rightsretained}
+
+\title{Actionable Feedback during Software Development}
+
+\authorinfo{Sebastian Erdweg}
+           {Delft University of Technology}
+           {}
+
+\maketitle
+
+
+
+\noindent
+My team works on programming tools that supply developers with actionable feedback during software development. 
+Feedback is actionable if it is relevant to the programmer's task, if the programmer can rely on its correctness, and if it arrives in a timely manner. 
+By providing actionable feedback, we protect developers against introducing performance bottlenecks, unsafe code, security vulnerabilities, or specification violations. 
+Our feedback also influences development tools such as compiler optimizations and refactorings. 
+We tackle this challenging research program in two focus areas: incremental computing and practical correctness proofs.
+
+
+\section{Incremental computing}
+
+My team develops building blocks for incremental algorithms that achieve high performance when reacting to a change in their input.
+Rather than repeating the entire computation over the changed input, an incremental algorithm only updates those parts of the previous result that are affected by the input change.
+This way, incremental algorithms provide asymptotical speedups in theory and we have observed multiple orders of magnitude speedups in practice.
+
+Incremental algorithms are crucial for providing actionable feedback because the feedback needs to be updated after every code change the developer makes.
+Yet, existing algorithms, such as the Java type checker in Eclipse JDT, are one-off solutions that required years of engineering that cannot be reproduced.
+We develop building blocks for incremental computing and collect them in frameworks that execute regular algorithms incrementally.
+
+
+In the \textbf{IncA project} \cite{SzaboVE17,SzaboEV16,SzaboKBME18}, we study algorithms for incremental program analysis.
+The basic idea is to store the syntax tree of programs in a relational database and to run incremental Datalog queries over these relations.
+However, incremental solvers of Datalog are inherently limited in expressiveness.
+In particular, they lack support for lattices, which are ubiquitous in program analysis.
+We were the first to discover techniques for incrementally solving lattice-based Datalog queries and we have applied our techniques to achieve order-of-magnitudes speedups when analyzing C, Java, and Rust code.
+
+In the \textbf{PIE project} (formerly pluto) \cite{ErdwegLW15,KonatEV18,KonatSEV18}, we develop incremental build systems.
+Incremental build systems are essential for fast, reproducible software builds and enable short feedback cycles when they capture dependencies precisely and selectively execute build tasks efficiently.
+A much-overlooked feature of build systems is the expressiveness of the scripting language, which directly influences the maintainability of build scripts.
+We develop new incremental build algorithms that allow build engineers to use a full-fledged programming language and where task dependencies can be discovered during building.	
+
+In the \textbf{CoCo project} \cite{KuciEBBM17,ErdwegBKKM15}, we explore novel ways for co-contextual reasoning about code and how that can be used to achieve incrementality.
+Specifically, we are developing co-contextual type checkers for functional and object-oriented programming languages.
+A co-contextual type checker produces context requirements rather than reading context information as it traverses a syntax tree bottom-up.
+We have mostly focused on applying this technique to incremental type checking so far, yet applications to parallelization and streaming seem promising.
+
+
+\section{Practical correctness proofs}
+Correctness proofs ensure algorithmic results are correct.
+Conversely, incorrect feedback gives developers a false sense of security that is not actually warranted by their code.
+We develop theory and tools that simplify correctness proofs.
+Our long-term goal is to enable analysis developers to prove correctness in little time, without requiring extensive training.
+Provably correct analysis results will boost the confidence of programmers when reacting to analysis feedback.
+
+In the \textbf{Sturdy project} \cite{KeidelB18,KeidelE17}, we explore techniques for compositional correctness proofs. 
+The key idea of compositional proofs is to decompose complex verification tasks into much simpler ones. 
+Developers then only need to prove the simple tasks, from which overall algorithmic correctness follows by construction. 
+Key to our approach is to capture the similarities between the specification and the implementation in a single shared program, parameterized over an arrow-based interface. 
+We have instantiated our technique for program analyses and proved simple analyses sound with modest effort. 
+To better understand and support practical scalability, we currently apply our framework to analyses of Java and JavaScript, as well as to code generators. 
+
+In the \textbf{Veritas project} \cite{GreweEPRM18,GreweEPM18,GreweEWM15}, we explore techniques for automated verification of complex tasks.
+Specifically, we explore how existing off-the-shelve SMT solvers and first-order theorem provers can be applied to prove domain-specific verification problems.
+The key idea is to translate such problems into first-order logic in a way that existing provers can support.
+Due to the unpredictability of off-the-shelve solvers, this research is largely driven by empirical experiments that indicate how such translation can be successful.
+
+In the \textbf{Soundx project} \cite{LorenzenE16,LorenzenE13}, we develop techniques to guarantee the type safety of code generators.
+Code generators are hard to get right because they operate at the meta-level, where programs are data.
+This makes it is easy to generate code that does not type check, which in turn is hard to debug for users since the type errors refer to generated code.
+We develop automated techniques for ensuring that code generators can only produce code that is well-typed.
+  
+
+
+
+
+
+
+
+
+
+\bibliographystyle{abbrvnat}
+\bibliography{mybib}
+
+
+
+
+\end{document}
