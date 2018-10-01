@@ -1,0 +1,166 @@
+%% For double-blind review submission
+\documentclass[sigplan]{acmart}
+\settopmatter{printfolios=true,printccs=false,printacmref=false}
+\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+\fancyfoot[RO,LE]{} % Remove "Proceedings of the ACM on Programming Languages"
+%% For single-blind review submission
+%\documentclass[acmlarge,review]{acmart}\settopmatter{printfolios=true}
+%% For final camera-ready submission
+%\documentclass[acmsmall,screen,nocopyrightspace]{acmart}
+%\settopmatter{printfolios=true,printccs=false,printacmref=false}
+
+\usepackage{amsmath}
+\usepackage{xspace}
+\usepackage{flushend}
+
+%% Some recommended packages.
+\usepackage{booktabs}   %% For formal tables:
+                        %% http://ctan.org/pkg/booktabs
+\usepackage{subcaption} %% For complex figures with subfigures/subcaptions
+                        %% http://ctan.org/pkg/subcaption
+
+
+\newcommand{\ie}{\textit{i.e.,}\xspace}
+\newcommand{\eg}{\textit{e.g.,}\xspace}
+\newcommand{\etc}{\textit{etc.}\xspace}
+\newcommand{\me}[1]{#1}
+
+\begin{document}
+
+\title{Sound and modular formal methods}
+
+\fancypagestyle{firstpagestyle}{
+  \fancyhf{} \fancyfoot[RO,LE]{}
+}
+
+\author{Robbert Krebbers}
+	\affiliation{%
+    \institution{Delft University of Technology}
+		\city{Delft}
+    \country{The Netherlands}
+  }
+
+\begin{abstract}
+This short paper is a contribution to the Lorentz Center workshop on ``A Research
+Agenda for Formal Methods in The Netherlands'' on September 3 and 4, 2018 in
+Leiden.
+%In this paper, I describe my research agenda on formal methods, as well as my
+%vision on future formal methods research.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Depending on the way software is used, and the resources that are available
+to ensure its quality, it is desired to establish different correctness properties.
+In some cases, safety properties may be sufficient,
+%(\ie to ensure that software does not crash)
+whereas in other cases (in particular, mission critical software), it would
+be desired to establish full functional correctness.
+%(\ie that the behavior of software corresponds to a detailed specification
+%written in some formalism).
+
+As such, I believe it is important that the formal methods community in
+the Netherlands develops a large variety of formal methods techniques and
+tools---ranging from static analysis, type systems and model checkers, to
+methods for establishing full functional correctness.
+This way, we can make sure that we---as the Dutch formal methods community---cover the whole spectrum.
+
+Regardless of the actual tools or techniques that are being used, it is
+crucial that these are \emph{sound} and \emph{modular}.
+Soundness means that whenever the tool says that software satisfies a certain
+property, that is undoubtedly the case.
+After all, we do not want to give false pretenses---software that is
+said to be formally verified should not go wrong.
+To achieve this, we should use sound mathematical principles as the basis to
+build tools and develop techniques.
+On top of that, we should make sure that the implementations of the tools we are
+using are mathematically verified.
+
+Modularity means that each component of a piece of software can be verified
+in isolation, and that when all of the components are combined into a larger
+piece of software, we obtain the intended correctness property for the
+software as a whole.
+Modularity is crucial to achieve scalability, which is crucial
+to use formal methods in the large.
+
+\section{Current research}
+My research has focused on the following topics:
+
+\begin{enumerate}
+\item How to develop formal semantics of realistic programming languages (like
+  C and Rust), and use said formal semantics to reason about such languages.
+\item How to develop \emph{separation logics} and \emph{logical relations}
+  that support modular reasoning
+  about daring programming features such as
+  fine-grained concurrency, higher-order functions, non-local control, \etc
+\item How to modularly establish meta theoretical properties of \emph{whole} programming
+  languages, like type safety.
+\item How to develop tools that enable convenient and proved sound reasoning
+  about programs.
+\end{enumerate}
+
+As the basis of my research I am using proof assistants, which can be used
+to specify programming languages, to reason about programs, and
+to validate mathematical results, in the most reliable and trustworthy way.
+I am an active user of the Coq proof assistant~\cite{coq} and nearly all of
+my recent research has been entirely formalized using it.
+
+Below I will list some noteworthy research projects that I have been involved
+in:
+\begin{itemize}
+\item As part of my PhD~\cite{nonlocal,expressions,phdthesis}, I have developed a formal
+  semantics of a large part of the C programming language, based on the
+  official specification of C from the C11 standard.
+  My C semantics, called \textbf{CH\(_2\)O}, comes in the form of a type system, an operational and
+  executable semantics, and a separation logic.
+  All of these components have been defined in Coq and are proved to match up
+  with each other.
+\item I am one of the main developers of
+  \textbf{Iris}~\cite{iris2,iris3,iris_ground_up}---a framework for higher-order
+  concurrent separation logic, which has been implemented in the Coq proof
+  assistant and deployed very effectively in a wide variety of verification
+  projects world-wide.
+  Among many other things, we have used Iris to establish the correctness of the
+  Rust type system and some of its standard libraries~\cite{rustbelt}, and to
+  develop an expressive logic to reason about refinements of concurrent programs~\cite{reloc}.
+\item I have worked on so-called \emph{tactic} languages for carrying out proofs in a proof assistant.
+  Notably, I have co-developed the tactic languages \textbf{Iris Proof Mode}~\cite{proofmode} and \textbf{MoSeL}~\cite{mosel} for separation logic proofs in Coq, and have co-developed \textbf{Mtac2}~\cite{mtac2}, a dependently typed language for safe tactic programming in Coq.
+\item Most of the aforementioned results use separate proofs to establish
+  properties of programs and programming languages.
+  In other work~\cite{autosound}, we have investigated how to use dependent types
+  to define programming language specifications so that certain properties (like
+  type safety) hold \emph{by construction}.
+\end{itemize}
+
+\section{Future research}
+
+There are many directions for future work in formal methods. In this section
+I will a (non-exhaustive) list of some directions that I plan to work on in the
+coming years:
+
+\begin{itemize}
+\item I have recently been awarded an NWO \textbf{Veni} grant to apply formal
+  verification to programs written in a combination of different programming languages.
+  This is needed, because actual software is not written in a single programming
+  language, but consist of many components written in different languages that
+  interact with each other.
+  As part of the Veni, I will develop formal semantics and reasoning tools
+  for shared-memory interaction via foreign function interfaces,
+  and message passing via sockets or signals, and apply this to the web,
+  where programming language interaction is omnipresent.
+\item A lot of the formal verification research has focused on functional
+  correctness, \ie that the program has the correct output given some input.
+  However, I think we should go beyond that, and develop sound and modular
+  techniques and tools for establishing non-functional properties such as
+  resource usage, complexity, security properties like non-interference, \etc
+  In a recent manuscript, we have developed a separation logic to establish correct
+  disposal of resources in a programming language with concurrency~\cite{iron}.
+\end{itemize}
+
+%% Bibliography
+\bibliographystyle{plain}
+\bibliography{bib}
+
+\end{document}

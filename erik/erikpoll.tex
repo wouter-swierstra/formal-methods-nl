@@ -1,0 +1,395 @@
+\documentclass[sigplan,10pt,noacm]{acmart}
+\settopmatter{printfolios=false,printccs=false,printacmref=false}
+
+\acmConference{A Research Agenda for Formal Methods in the Netherlands}%
+  {September 3--4}%
+  {Lorentz Center, Leiden, The Netherlands}
+\acmYear{2018}
+\acmISBN{} % \acmISBN{978-x-xxxx-xxxx-x/YY/MM}
+\acmDOI{} % \acmDOI{10.1145/nnnnnnn.nnnnnnn}
+\startPage{1}
+
+\setcopyright{none}
+
+\bibliographystyle{ACM-Reference-Format}
+\citestyle{acmnumeric}     %% For numeric citations
+
+\begin{document}
+
+\title{Formal Methods for Security?}
+
+\author{Erik Poll}
+\affiliation{
+  \department{Digital Security group}        
+  \institution{Radboud University}          
+}
+\email{erikpoll@cs.ru.nl}          
+
+\maketitle
+\pagestyle{empty}
+
+
+This position paper sketches some 
+opportunities in applying formal methods for security,
+more specifically security of software.
+%There are two levels at which we can try to use formal methods
+%here: at the level of an individual application, to ensure
+%meeting application-specific security requirments, or at the
+%level of the programming language, to make the language or
+%its use `safer'.
+% and less prone to generic security vulnerabilities.
+
+\subsection*{A killer application for formal methods?}
+
+At first sight  -- and even at second sight -- security looks like
+an interesting application area for formal methods. 
+
+One reason for this is that security flaws have a higher impact
+than more harmless bugs. This might justify or even require the extra
+effort to invest in using formal methods.  Indeed, the highest
+levels of certification using the Common Criteria security
+evaluation standard require the use of formal methods.
+
+Another reason is that some security problems are orthogonal to
+-- or at least largely independent of -- the functionality of a
+system.  Indeed, security vulnerabilities can be seen as
+`anti-functionality': functionality that is unintentionally
+provided, also to attackers, which should not be available at
+all.  Given that writing complete functional specifications is
+hard, and totally unfeasible in most cases, concentrating on
+partial specs that ensure some generic safety properties 
+problems might provide a better return of investment, also
+because such specs could be re-used across applications.
+
+Unfortunately, things are not so simple.  Security properties can
+be tricky to specify. Indeed, attackers can be very creative in
+finding and exploiting new loopholes. A common and natural way to
+specify security properties is in a `negative' way, by saying
+that something -- some type of attack -- is not supposed to be
+possible. For example, a web application should not be vulnerable
+to SQL injection or XSS. List of these negative properties are
+useful in testing, as they suggest negative tests (i.e.\
+test-cases which are supposed to fail, by triggering some error
+response), but they are not immediately helpful in construction.
+Moreover, these lists of negative properties are typically
+incomplete. They only address a limited set of known potential
+problems, not all potential problems.
+
+Moreover, sometimes security problems arise because it turns
+out fundamental assumptions about programs can be broken by an
+attacker, 
+invalidating the very abstractions that we use in formal methods
+to reason about programs.  Classic examples here are fault
+attacks (for example the Rowhammer attack to flip some 
+bits in DRAM memory) or information leaking through side-channels
+(for example the Spectre and Meltdown timing attacks on modern
+CPUs). Of course, our formal models could be refined to accomodate
+these low-level attacks, but at the (high) cost of extra
+complexity.
+
+\subsection*{Security functionality $\not=$ secure functionality}
+
+When investigating at the security of software, it is natural to
+focus on the security functionality, i.e.\ the functionality
+specifically intended to provide some security guarantees, such
+as access control checks or security protocols like SSL/TLS.
+Such functionality is obviously security-critical.
+
+However, while this may suggest rewarding aspects or components
+to investigate, it is dangerous to fall into the trap of thinking
+that such security functionality is the only or even the most
+important area to look for problems.  Not only the security
+functionality has to be secure: \emph{all} functionality needs to
+be, as security vulnerabilities can lurk in any line of code that
+can be triggered by input controlled by the attacker.  The bulk of
+security bugs is not in code specifically aimed at achieving some
+security goal, but is in more mundane functionality, say the
+parsing of PDF files or the rendering of some graphical
+format, with Flash as the most notorious example.
+
+\subsection*{LangSec: back to basics?}
+
+The paradigm of LangSec (language-theoretic security)\footnote{See also \url{http:\\langsec.org}, esp. \cite{LangSecBoF}, or
+\cite{Momot2016} for a more recent entry point into the LangSec literature.}
+provides very good insights into the root causes of the overwhelming
+majority of security flaws, namely bugs in handling input, which
+typically boil down to bugs in the parsing and
+processing input languages and formats, rather than bugs in
+the application logic.
+
+One problem is with the input languages themselves: they are
+typically overly complex, too expressive, and poorly -- and
+informally -- specified.  To make matters worse, there are many
+of these languages, at every level of the network and software
+stack, and they can be combined or nested. A further problem here
+is that the code to process these languages is typically
+hand-coded, and not obtained using parser generation.
+
+Ironically -- or embarrassingly, for the computing science
+community -- theories for formal language definitions and parser
+generation are some of the oldest and most established areas
+in formal methods. Still, somehow the whole world is still
+writing long prose documents to specify languages and protocols,
+and then hand-coding parsers -- often in memory unsafe
+languages like C or C++, where the potential security impact of
+flaws is the biggest (namely remote code execution).
+There is a huge opportunity here to provide better notations and tools
+to prevent all this misery. Or maybe these already exist, and we
+should do a better job in training people -- incl.\ our students
+-- on how to use them?
+
+One step further from formal specs and associated code generation
+for parsers and pretty printers would be domain-specific
+programming languages to support different input formats and
+languages as first class citizens, as envisioned in Wyvern
+\cite{Wyvern}.
+
+\subsection*{Security Testing \& Model Extraction}
+
+The past decade has seen a lot of fruitful interaction between
+formal methods and testing, also in security testing.  An
+interesting trend is the use of formal methods, notably
+symbolic/concolic execution, for security testing
+\cite{SAGE,driller} or even going one step further and actually
+develop exploits as in the angr tool \cite{angr}.  If we
+cannot get developers to use formal methods, maybe we should
+concentrate efforts on getting security testers and hackers to use
+formal methods?
+(Of course, with more robust parser code that has generated from
+formal language specs, as we argue for above, it should be harder
+to find security flaws \ldots)
+
+Test techniques can also provide a way to obtain formal specs
+from implementations.  Given the difficulty of obtaining formal
+models this is an interesting direction of work.  Existing
+fuzzers can already reverse-engineer input formats
+\cite{Polyglot,Prospex}, and state machine inference can be used
+to extract security-relevant behaviour from code
+\cite{LangSec2015}.
+
+All such formal techniques for security testing or model inference
+could be combined with machine-based learning or AI approaches,
+to improve results and/or the level of automation. 
+
+\subsection*{Practical information flow}
+
+Information flow properties are an interesting class of security
+properties. Information flow can be used to track potential
+leakage of confidential information or to track the flow of
+tainted input to places where such input may do damage.  Research
+on information flow has a long history, dating back to the 1970s
+\cite{Denning77}, and ad-hoc information analyses are implemented
+in code analysis for security flaws -- aka Static Application
+Security Testing (SAST), by tools such as Coverity, Checkmarx, or
+Fortify, but flexible and practical approaches to express and
+enforce information flow for programs in popular programming
+languages (e.g.\ \cite{Dietl2011} for Java) are still rare and
+not commonly used. 
+
+\subsection*{New (and safer) programming languages, new opportunities?}
+
+One positive development for security in recent years has been
+the advent of new programming languages -- Rust, D, Go, Swift,
+Nim, \ldots -- where safety is very much a design goal. Some of
+these languages are specifically aimed for low-level programming
+and might become viable, widely-used, and safer alternatives
+for C/C++ and then reduce the prevalence of memory corruption
+problems.
+
+The advent of these new languages is a double-edged sword.  An
+advantage is that they are designed to be more amenable to formal
+analysis and have some security guarantees built in at the
+language level. A downside is that new languages require new
+tools. Building and maintaining good formal methods tools is a
+major bottleneck, so here the advent of new languages is bad
+news.  For researchers these new languages represent new research
+opportunities. This may be good news, if this new research gets
+us further, or bad news, if this research is merely repeating and
+recycling the same old ideas without getting us further.
+
+%\bibliography{researchagenda_fm.bib}
+
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{11}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[\protect\citeauthoryear{??}{Lan}{2013}]%
+        {LangSecBoF}
+ \bibinfo{year}{2013}\natexlab{}.
+\newblock \bibinfo{title}{{LangSec}: Recognition, Validation, and Compositional
+  Correctness for Real World Security}.
+\newblock   (\bibinfo{year}{2013}).
+\newblock
+\newblock
+\shownote{USENIX Security BoF hand-out. Available from
+  \url{http://langsec.org/bof-handout.pdf}.}
+
+
+\bibitem[\protect\citeauthoryear{Caballero, Yin, Liang, and Song}{Caballero
+  et~al\mbox{.}}{2007}]%
+        {Polyglot}
+\bibfield{author}{\bibinfo{person}{J. Caballero}, \bibinfo{person}{H. Yin},
+  \bibinfo{person}{Z. Liang}, {and} \bibinfo{person}{D. Song}.}
+  \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{Polyglot: Automatic extraction of protocol message
+  format using dynamic binary analysis}. In \bibinfo{booktitle}{\emph{CCS'07}}.
+  ACM, \bibinfo{pages}{317--329}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Comparetti, Wondracek, Kruegel, and
+  Kirda}{Comparetti et~al\mbox{.}}{2009}]%
+        {Prospex}
+\bibfield{author}{\bibinfo{person}{P.M. Comparetti}, \bibinfo{person}{G.
+  Wondracek}, \bibinfo{person}{C. Kruegel}, {and} \bibinfo{person}{E. Kirda}.}
+  \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{Prospex: Protocol specification extraction}. In
+  \bibinfo{booktitle}{\emph{Security and Privacy, 2009 30th IEEE Symposium
+  on}}. IEEE, \bibinfo{pages}{110--125}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Denning and Denning}{Denning and
+  Denning}{1977}]%
+        {Denning77}
+\bibfield{author}{\bibinfo{person}{D.E. Denning} {and} \bibinfo{person}{P.J.
+  Denning}.} \bibinfo{year}{1977}\natexlab{}.
+\newblock \showarticletitle{Certification of Programs for Secure Information
+  Flow}.
+\newblock \bibinfo{journal}{\emph{Commun. ACM}} \bibinfo{volume}{20},
+  \bibinfo{number}{7} (\bibinfo{date}{July} \bibinfo{year}{1977}),
+  \bibinfo{pages}{504--513}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dietl, Dietzel, Ernst, Mu\c{s}lu, and
+  Schiller}{Dietl et~al\mbox{.}}{2011}]%
+        {Dietl2011}
+\bibfield{author}{\bibinfo{person}{W. Dietl}, \bibinfo{person}{S. Dietzel},
+  \bibinfo{person}{M.D. Ernst}, \bibinfo{person}{K. Mu\c{s}lu}, {and}
+  \bibinfo{person}{T.W. Schiller}.} \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{Building and Using Pluggable Type-checkers}. In
+  \bibinfo{booktitle}{\emph{ICSE'11}}. \bibinfo{publisher}{ACM},
+  \bibinfo{pages}{681--690}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Godefroid, Levin, and Molnar}{Godefroid
+  et~al\mbox{.}}{2012}]%
+        {SAGE}
+\bibfield{author}{\bibinfo{person}{P. Godefroid}, \bibinfo{person}{M.Y. Levin},
+  {and} \bibinfo{person}{D. Molnar}.} \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{SAGE: whitebox fuzzing for security testing}.
+\newblock \bibinfo{journal}{\emph{Queue}} \bibinfo{volume}{10},
+  \bibinfo{number}{1} (\bibinfo{year}{2012}), \bibinfo{pages}{20}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Momot, Bratus, Hallberg, and Patterson}{Momot
+  et~al\mbox{.}}{2016}]%
+        {Momot2016}
+\bibfield{author}{\bibinfo{person}{F. Momot}, \bibinfo{person}{S. Bratus},
+  \bibinfo{person}{S.M. Hallberg}, {and} \bibinfo{person}{M.L. Patterson}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{The seven turrets of {Babel}: A taxonomy of
+  {LangSec} errors and how to expunge them}. In
+  \bibinfo{booktitle}{\emph{Cybersecurity Development (SecDev)}}. IEEE,
+  \bibinfo{pages}{45--52}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Omar, Kurilova, Nistor, Chung, Potanin, and
+  Aldrich}{Omar et~al\mbox{.}}{2014}]%
+        {Wyvern}
+\bibfield{author}{\bibinfo{person}{C. Omar}, \bibinfo{person}{D. Kurilova},
+  \bibinfo{person}{L. Nistor}, \bibinfo{person}{B. Chung}, \bibinfo{person}{A.
+  Potanin}, {and} \bibinfo{person}{J. Aldrich}.}
+  \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{Safely composable type-specific languages}. In
+  \bibinfo{booktitle}{\emph{ECOOP'14}} \emph{(\bibinfo{series}{LNCS})},
+  Vol.~\bibinfo{volume}{8586}. Springer, \bibinfo{pages}{105--130}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Poll, de~Ruiter, and Schubert}{Poll
+  et~al\mbox{.}}{2015}]%
+        {LangSec2015}
+\bibfield{author}{\bibinfo{person}{E. Poll}, \bibinfo{person}{J. de Ruiter},
+  {and} \bibinfo{person}{A. Schubert}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Protocol state machines and session languages:
+  specification, implementation, and security flaws}. In
+  \bibinfo{booktitle}{\emph{Workshop on Language-Theoretic Security
+  (LangSec'15), Symposium on Security and Privacy Workshops}}.
+  \bibinfo{publisher}{IEEE}, \bibinfo{pages}{125 -- 133}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Shoshitaishvili, Wang, Salls, Stephens,
+  Polino, Dutcher, Grosen, Feng, Hauser, Kruegel, and Vigna}{Shoshitaishvili
+  et~al\mbox{.}}{2016}]%
+        {angr}
+\bibfield{author}{\bibinfo{person}{Y. Shoshitaishvili}, \bibinfo{person}{R.
+  Wang}, \bibinfo{person}{C. Salls}, \bibinfo{person}{N. Stephens},
+  \bibinfo{person}{M. Polino}, \bibinfo{person}{A. Dutcher},
+  \bibinfo{person}{J. Grosen}, \bibinfo{person}{S. Feng}, \bibinfo{person}{C.
+  Hauser}, \bibinfo{person}{C. Kruegel}, {and} \bibinfo{person}{G. Vigna}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{{SOK}:(state of) the art of war: Offensive
+  techniques in binary analysis}. In \bibinfo{booktitle}{\emph{Symposium on
+  Security and Privacy (SP)}}. IEEE, \bibinfo{pages}{138--157}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Stephens, Grosen, Salls, Dutcher, Wang,
+  Corbetta, Shoshitaishvili, Kruegel, and Vigna}{Stephens
+  et~al\mbox{.}}{2016}]%
+        {driller}
+\bibfield{author}{\bibinfo{person}{N. Stephens}, \bibinfo{person}{J. Grosen},
+  \bibinfo{person}{C. Salls}, \bibinfo{person}{A. Dutcher}, \bibinfo{person}{R.
+  Wang}, \bibinfo{person}{J. Corbetta}, \bibinfo{person}{Y. Shoshitaishvili},
+  \bibinfo{person}{C. Kruegel}, {and} \bibinfo{person}{G. Vigna}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Driller: Augmenting Fuzzing Through Selective
+  Symbolic Execution}. In \bibinfo{booktitle}{\emph{NDSS'16}},
+  Vol.~\bibinfo{volume}{16}. \bibinfo{publisher}{Internet Society},
+  \bibinfo{pages}{1--16}.
+\newblock
+
+
+\end{thebibliography}
+\end{document}

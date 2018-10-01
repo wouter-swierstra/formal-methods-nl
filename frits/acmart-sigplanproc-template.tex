@@ -1,0 +1,343 @@
+%% For double-blind review submission, w/o CCS and ACM Reference (max submission space)
+\documentclass[sigplan]{acmart}\settopmatter{printfolios=true,printccs=false,printacmref=false}
+%% For double-blind review submission, w/ CCS and ACM Reference
+%\documentclass[sigplan,review,anonymous]{acmart}\settopmatter{printfolios=true}
+%% For single-blind review submission, w/o CCS and ACM Reference (max submission space)
+%\documentclass[sigplan,review]{acmart}\settopmatter{printfolios=true,printccs=false,printacmref=false}
+%% For single-blind review submission, w/ CCS and ACM Reference
+%\documentclass[sigplan,review]{acmart}\settopmatter{printfolios=true}
+%% For final camera-ready submission, w/ required CCS and ACM Reference
+%\documentclass[sigplan]{acmart}\settopmatter{}
+
+
+%% Conference information
+%% Supplied to authors by publisher for camera-ready submission;
+%% use defaults for review submission.
+\acmConference[A Research Agenda for Formal Methods]{A Research Agenda for Formal Methods}{September 3--4, 2018}{Lorentz Center Leiden}
+\acmYear{2018}
+\acmISBN{} % \acmISBN{978-x-xxxx-xxxx-x/YY/MM}
+\acmDOI{} % \acmDOI{10.1145/nnnnnnn.nnnnnnn}
+\startPage{1}
+
+%% Copyright information
+%% Supplied to authors (based on authors' rights management selection;
+%% see authors.acm.org) by publisher for camera-ready submission;
+%% use 'none' for review submission.
+\setcopyright{none}
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+%\setcopyright{rightsretained}
+%\copyrightyear{2018}           %% If different from \acmYear
+
+%% Bibliography style
+\bibliographystyle{ACM-Reference-Format}
+%% Citation style
+%\citestyle{acmauthoryear}  %% For author/year citations
+%\citestyle{acmnumeric}     %% For numeric citations
+%\setcitestyle{nosort}      %% With 'acmnumeric', to disable automatic
+                            %% sorting of references within a single citation;
+                            %% e.g., \cite{Smith99,Carpenter05,Baker12}
+                            %% rendered as [14,5,2] rather than [2,5,14].
+%\setcitesyle{nocompress}   %% With 'acmnumeric', to disable automatic
+                            %% compression of sequential references within a
+                            %% single citation;
+                            %% e.g., \cite{Baker12,Baker14,Baker16}
+                            %% rendered as [2,3,4] rather than [2-4].
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Note: Authors migrating a paper from traditional SIGPLAN
+%% proceedings format to PACMPL format must update the
+%% '\documentclass' and topmatter commands above; see
+%% 'acmart-pacmpl-template.tex'.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Some recommended packages.
+\usepackage{booktabs}   %% For formal tables:
+                        %% http://ctan.org/pkg/booktabs
+\usepackage{subcaption} %% For complex figures with subfigures/subcaptions
+                        %% http://ctan.org/pkg/subcaption
+
+
+\begin{document}
+
+%% Title information
+\title[Model Learning and Testing]{Model Learning and Testing}         %% [Short Title] is optional;
+                                        %% when present, will be used in
+                                        %% header instead of Full Title.
+%\titlenote{with title note}             %% \titlenote is optional;
+                                        %% can be repeated if necessary;
+                                        %% contents suppressed with 'anonymous'
+\subtitle{(and some observations on formal methods research in the Netherlands)}                     %% \subtitle is optional
+%\subtitlenote{with subtitle note}       %% \subtitlenote is optional;
+                                        %% can be repeated if necessary;
+                                        %% contents suppressed with 'anonymous'
+
+
+%% Author information
+%% Contents and number of authors suppressed with 'anonymous'.
+%% Each author should be introduced by \author, followed by
+%% \authornote (optional), \orcid (optional), \affiliation, and
+%% \email.
+%% An author may have multiple affiliations and/or emails; repeat the
+%% appropriate command.
+%% Many elements are not rendered, but should be provided for metadata
+%% extraction tools.
+
+%% Author with single affiliation.
+\author{Frits Vaandrager}
+%\authornote{with author1 note}          %% \authornote is optional;
+                                        %% can be repeated if necessary
+\orcid{nnnn-nnnn-nnnn-nnnn}             %% \orcid is optional
+\affiliation{
+  %\position{Position1}
+  \department{Institute for Computing and Information Sciences}              %% \department is recommended
+  \institution{Radboud University}            %% \institution is required
+ % \streetaddress{Street1 Address1}
+  \city{Nijmegen}
+  %\state{State1}
+  %\postcode{Post-Code1}
+  \country{the Netherlands}                    %% \country is recommended
+}
+\email{F.Vaandrager@cs.ru.nl}          %% \email is recommended
+
+
+
+%% Abstract
+%% Note: \begin{abstract}...\end{abstract} environment must come
+%% before \maketitle command
+%\begin{abstract}
+%Text of abstract \ldots.
+%\end{abstract}
+
+
+%% 2012 ACM Computing Classification System (CSS) concepts
+%% Generate at 'http://dl.acm.org/ccs/ccs.cfm'.
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10011007.10011006.10011008</concept_id>
+<concept_desc>Software and its engineering~General programming languages</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10003456.10003457.10003521.10003525</concept_id>
+<concept_desc>Social and professional topics~History of programming languages</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Software and its engineering~General programming languages}
+\ccsdesc[300]{Social and professional topics~History of programming languages}
+%% End of generated code
+
+
+%% Keywords
+%% comma separated list
+%\keywords{keyword1, keyword2, keyword3}  %% \keywords are mandatory in final camera-ready submission
+
+
+%% \maketitle
+%% Note: \maketitle command must come after title commands, author
+%% commands, abstract environment, Computing Classification System
+%% environment and commands, and keywords command.
+\maketitle
+
+
+\section{Formal Methods in The Netherlands: Where Are We?}
+Formal methods is often defined as the applied mathematics of computer system
+engineering.
+The Netherlands has a strong tradition in this area. This started with
+scientific giants such as Van Wijngaarden and Dijkstra, continued with e.g., De Bakker, De Roever, Rozenberg, Rem, Barendregt, Bergstra and Klop, and led
+to the strong formal methods groups that we see at Dutch universities today. In addition, some highly visible Dutch formal methods researchers are active abroad, e.g., Katoen, Holzmann, Van Glabbeek and Bloem.
+
+Still, my impression is that Dutch formal methods research is not as influential and authoritative as it used to be. A number of factors may have contributed to this:
+\begin{enumerate}
+\item 
+The field has matured and changed considerably over the years. Whereas, for instance, Bergstra \& Klop could create major impact with papers on complete axiomatizations of process algebras, nowadays a nice theoretical idea is not enough. You also must show (or at least make it plausible) that an idea can be implemented and be effectively used to advance the state-of-the-art of computer system engineering. This is a different game, where rather than one or two brilliant theoreticians, you need a whole team/network of researchers, with different people focusing on theory, tools and applications.
+Despite notable exceptions, the Dutch formal methods community as a whole has not adapted fast enough to this new reality. 
+Too often, I see formal methods papers in which the introduction refers to the importance of correct software, but the proposed methods
+have not been applied to real software yet, and there is not even a plausible scenario of how the results could be applied to real systems. Too often, also,  I see colleagues write papers on questions and research approaches that are almost identical to the ones they explored in their thesis many years ago. 
+\item 
+The funding situation has not been very helpful with on the one hand the personal grants that support individuals (rather than teams/networks), and
+on the other hands projects that require direct support from industry (and typically have a focus on short term applications). The funding does not have the scale and
+time horizon needed to solve the challenges that our field is facing.
+\item 
+Maybe we no longer succeed to attract the most brilliant and ambitious students.  Somehow, cyber security, artificial intelligence and data science
+appear to have a more attractive proposition. 
+\end{enumerate}
+
+\section{Formal Methods in The Netherlands: Where Do We Want To Go?}
+So what should we do to address the above problems? A first thing is to bring the community together and to discuss the problems. I am most grateful to Marieke and Eelco for their initiative to organize this workshop. I suggest a couple of actions:
+\begin{enumerate}
+\item 
+{\bf Research agenda.}
+We need to identify a couple of major research challenges where we believe Dutch FM researchers can really make a difference on industrial practice within say seven years, and outline how we want to do it. Only by working together we can create the desired impact. Different teams may work on each of these challenges, combining expertise ranging from pure theory all the way to practical application. (Below I will discuss the research challenge we work on.)
+\item 
+{\bf Industrial support crucial.}
+In his contribution for this meeting, Joost-Pieter Katoen argues for ``More Programs, Less Models'', and observes an international trend ``from model-based to code-based analysis''. In my view, there are many good reasons why the Dutch high-tech industry is still pursuing a model-based approach (high level of abstraction, possibility to simulate cyber-physical systems and explore design alternatives before they are built (``digital twins''), automatic code generation, etc,..). The presence of a number of big companies that invest in model-based development offers excellent opportunities for Dutch formal methods research, as long as we are willing to face the complexity of industrial design, and try to help people in industry with the problems they face (e.g., dealing with complexity of models and with legacy software for which no models are available.  Having said that, I do think (based on my own experience and feedback from  students who did internships) that within industry there is much ignorance about modern software analysis techniques, and also within the formal method community we could use more expertise on e.g., static analysis and software verification.
+
+\item 
+{\bf Funding strategy/lobby.}
+Once a national formal methods agenda is there, we should just start working on it, irrespective of whether the agenda is supported by funding agencies. Simultaneously, we should try to get funding from a variety of sources asap. For this it would be helpful if the agenda gets some formal status and is officially recognized by VERSEN, IPN, as part of the new sector plan, and/or even as part of the Dutch national science agenda. We should definitely lobby for a Jacquard like program funded by NWO.
+In the discussion about funding it is \emph{urgent} to arrive at a clear division of work / areas of expertise between different formal methods groups in the Netherlands, e.g., via a list of ten subfields where each university claims a leading role in at most two or three topics.
+\item 
+{\bf Attracting talent.}
+Clearly, having a convincing research agenda with challenging problems and a vision on how to tackle these problems will attract talent. My suggestion would be to organize another meeting at some point to exchange ideas on how we can attract more talented students to our area.
+\end{enumerate}
+
+\section{Model Learning and Testing}
+Active automata learning (or model learning) aims to construct black-box state machine models of software and hardware systems
+by providing inputs and observing outputs. 
+State machines are crucial for understanding the behavior of many software systems, such as network protocols and embedded control software,
+as they allow us to reason about communication errors and component compatibility.
+Model learning is emerging as a highly effective bug-finding technique \cite{Vaa17}. 
+It has been successfully used in several different application domains,
+including
+% \todo{Frits: removed refs here: they are also in related work section}
+\begin{itemize}
+\item
+  generating conformance test suites of software components, a.k.a.\  {\em learning-based testing},
+\item
+ finding mistakes in implementations of security-critical protocols,
+\item
+  learning interfaces of classes in software libraries,
+\item
+  checking that a legacy component and a refactored implementation have the same behavior.
+\end{itemize}
+
+There is certainly a large potential for application of model learning to many
+different aspects of software development, maintenance and refactoring,
+especially when it comes to handling legacy software.
+To realize this
+potential, two  major challenges must be addressed:
+(1) currently, techniques do not scale well,
+and (2) they are not yet satisfactorily developed for
+richer classes of models.
+
+One way to address these challenges is to augment
+model learning with white-box information extraction methods (e.g., symbolic execution, tain analysis, static analysis),
+which are able to obtain 
+information about  the system-under-learning at lower cost than black-box techniques.
+%% that can be obtained through white-box techniques.
+When dealing with computer-based systems, there is a spectrum of how much information we have about the code.
+For third party components that run on separate hardware, we may not have access to the code at all.
+Frequently we will have access to the executable, but not anymore to the original code.
+Or we may have access to the code, but not to adequate tools for analyzing it (this often happens with legacy components).
+If we can construct a good model of a component using black-box learning techniques, we do not need to worry about the code.
+However, in cases where black-box techniques do not work and/or the number of queries becomes too high,
+it makes sense to exploit information from the code during model learning.
+
+Active automata learning is closely related to model-based testing, and both activities can be viewed as two sides of the same coin. 
+Whereas automata learning aims at constructing hypothesis models from observations, model-based testing checks 
+whether a system under test conforms to a given model.
+Model-based test tools play a crucial role within active automata learning, as a way to determine whether a learned model is correct or not.
+For this reason, the activities in Nijmegen on model learning and model-based testing are closely aligned, and inspire/challenge each other.
+
+Within our group, Nils Jansen recently started as an assistant professor  working at the intersection between formal verification, machine learning, and control theory, along the lines described in Sections 4 and 5 of  Katoen's contribution.
+
+\paragraph{Research objective.}
+Our objective is to reach --- within say seven years -- the point where
+active automata learning and model based testing have become standard tools
+in the toolbox of the software engineer, equally mature as model checking is
+right now.
+
+\paragraph{Collaboration.} 
+Our group e.g., collaborates closely with the groups of Bernhard Steffen and Falk Howar at the TU Dortmund on learning tools,
+with the group of Andreas Zeller from Saarland University on the use of taint analysis in learning,
+with TNO ESI on the model-based testing tool TorXakis, with
+the Digital Security Group in Nijmegen on case studies related to security,
+and with ASML and Philips Healthcare on case studies related to refactoring
+of legacy software. 
+All these collaborations are vital for reaching our research objectives.
+We would be most interested to collaborate with other groups in the Netherlands, e.g., on the use of white-box analysis techniques in automata learning.
+%
+
+
+%% Acknowledgments
+%\begin{acks}                            %% acks environment is optional
+                                        %% contents suppressed with 'anonymous'
+  %% Commands \grantsponsor{<sponsorID>}{<name>}{<url>} and
+  %% \grantnum[<url>]{<sponsorID>}{<number>} should be used to
+  %% acknowledge financial support and will be used by metadata
+  %% extraction tools.
+ % This material is based upon work supported by the
+ % \grantsponsor{GS100000001}{National Science
+ %   Foundation}{http://dx.doi.org/10.13039/100000001} under Grant
+ % No.~\grantnum{GS100000001}{nnnnnnn} and Grant
+%  No.~\grantnum{GS100000001}{mmmmmmm}.  Any opinions, findings, and
+%  conclusions or recommendations expressed in this material are those
+%  of the author and do not necessarily reflect the views of the
+%  National Science Foundation.
+%\end{acks}
+
+
+%% Bibliography
+
+%\bibliography{abbreviations,dbase,survey}
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\def\Nst#1{$#1^{st}$}\def\Nnd#1{$#1^{nd}$}\def\Nrd#1{$#1^{rd}$}\def\Nth#1{$#1^{th}$}\newcommand{\SortNoop}[1]{}
+\begin{thebibliography}{1}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[\protect\citeauthoryear{Vaandrager}{Vaandrager}{2017}]%
+        {Vaa17}
+\bibfield{author}{\bibinfo{person}{F.W. Vaandrager}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Model Learning}.
+\newblock \bibinfo{journal}{\emph{CACM}} \bibinfo{volume}{60},
+  \bibinfo{number}{2} (\bibinfo{date}{Feb.} \bibinfo{year}{2017}),
+  \bibinfo{pages}{86--95}.
+\newblock
+\showISSN{0001-0782}
+\urldef\tempurl%
+\url{https://doi.org/10.1145/2967606}
+\showDOI{\tempurl}
+
+
+\end{thebibliography}
+
+%% Appendix
+%\appendix
+%\section{Appendix}
+
+%Text of appendix \ldots
+
+\end{document}
